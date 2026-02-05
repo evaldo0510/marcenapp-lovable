@@ -9,6 +9,8 @@ import ManifestoModal from '../components/modals/ManifestoModal';
 import BentoModal from '../components/modals/BentoModal';
 import EstelaModal from '../components/modals/EstelaModal';
 import IdentityModal from '../components/modals/IdentityModal';
+import GainsModal from '../components/modals/GainsModal';
+import LogisticsModal from '../components/modals/LogisticsModal';
 import { IaraModule } from '../lib/iara';
 import { useVoice } from '../hooks/useVoice';
 
@@ -199,6 +201,14 @@ const Index = () => {
         isOpen={activeModal === 'identidade'}
         onClose={() => setActiveModal(null)}
       />
+      <GainsModal
+        isOpen={activeModal === 'ganhos'}
+        onClose={() => setActiveModal(null)}
+      />
+      <LogisticsModal
+        isOpen={activeModal === 'logistica'}
+        onClose={() => setActiveModal(null)}
+      />
 
       <div className="w-full max-w-[480px] h-screen sm:h-[880px] bg-background sm:rounded-[3.5rem] overflow-hidden flex flex-col shadow-2xl sm:border-[12px] border-industrial relative">
         {/* Notch */}
@@ -264,8 +274,8 @@ const Index = () => {
           onBrandClick={() => setActiveModal('identidade')}
           onBentoClick={() => setActiveModal('bento')}
           onEstelaClick={() => setActiveModal('estela')}
-          onGainsClick={() => toast.info('Ganhos Master')}
-          onLogisticsClick={() => toast.info('Frota Ativa')}
+          onGainsClick={() => setActiveModal('ganhos')}
+          onLogisticsClick={() => setActiveModal('logistica')}
           onManifestoClick={() => setActiveModal('manifesto')}
         />
 
