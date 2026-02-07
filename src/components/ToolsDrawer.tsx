@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, Image as LucideImage, Palette, Scissors, DollarSign, BarChart3, Truck, Flag } from 'lucide-react';
+import { X, Image as LucideImage, Palette, Scissors, DollarSign, BarChart3, Truck, Flag, Store, Cloud, Box } from 'lucide-react';
 import LogoMarcenApp from './Logo';
 
 interface ToolsDrawerProps {
@@ -12,13 +12,16 @@ interface ToolsDrawerProps {
   onGainsClick: () => void;
   onLogisticsClick: () => void;
   onManifestoClick: () => void;
+  onDistributorClick: () => void;
+  onCNCClick: () => void;
+  onMaterialsClick: () => void;
 }
 
 const tools = [
   { icon: LucideImage, label: 'GALERIA', variant: 'secondary' as const, key: 'gallery' },
-  { icon: Palette, label: 'MARCA', variant: 'primary' as const, key: 'brand' },
-  { icon: Scissors, label: 'BENTO', variant: 'secondary' as const, key: 'bento' },
-  { icon: DollarSign, label: 'ESTELA', variant: 'primary' as const, key: 'estela' },
+  { icon: Store, label: 'PREÇOS', variant: 'primary' as const, key: 'distributor' },
+  { icon: Cloud, label: 'CNC', variant: 'secondary' as const, key: 'cnc' },
+  { icon: Box, label: 'MDF', variant: 'primary' as const, key: 'materials' },
 ];
 
 export const ToolsDrawer: React.FC<ToolsDrawerProps> = ({
@@ -31,6 +34,9 @@ export const ToolsDrawer: React.FC<ToolsDrawerProps> = ({
   onGainsClick,
   onLogisticsClick,
   onManifestoClick,
+  onDistributorClick,
+  onCNCClick,
+  onMaterialsClick,
 }) => {
   if (!isOpen) return null;
 
@@ -39,14 +45,14 @@ export const ToolsDrawer: React.FC<ToolsDrawerProps> = ({
       case 'gallery':
         onGalleryClick();
         break;
-      case 'brand':
-        onBrandClick();
+      case 'distributor':
+        onDistributorClick();
         break;
-      case 'bento':
-        onBentoClick();
+      case 'cnc':
+        onCNCClick();
         break;
-      case 'estela':
-        onEstelaClick();
+      case 'materials':
+        onMaterialsClick();
         break;
     }
   };
@@ -89,7 +95,21 @@ export const ToolsDrawer: React.FC<ToolsDrawerProps> = ({
             );
           })}
         </div>
-        <div className="grid grid-cols-3 gap-3 border-t border-border pt-8 text-[10px]">
+        <div className="grid grid-cols-2 gap-3 border-t border-border pt-6 text-[10px]">
+          <button
+            onClick={onBentoClick}
+            className="bg-muted py-4 rounded-2xl border border-border font-black text-foreground active:scale-95 uppercase flex items-center justify-center gap-2 transition-transform"
+          >
+            <Scissors size={16} /> Produção
+          </button>
+          <button
+            onClick={onEstelaClick}
+            className="bg-primary text-primary-foreground py-4 rounded-2xl font-black uppercase active:scale-95 shadow-industrial flex items-center justify-center gap-2 transition-transform"
+          >
+            <DollarSign size={16} /> Orçamento
+          </button>
+        </div>
+        <div className="grid grid-cols-3 gap-3 pt-3 text-[10px]">
           <button
             onClick={onGainsClick}
             className="bg-industrial text-industrial-foreground py-4 rounded-2xl font-black uppercase active:scale-95 shadow-lg flex items-center justify-center gap-2 transition-transform"
@@ -104,9 +124,9 @@ export const ToolsDrawer: React.FC<ToolsDrawerProps> = ({
           </button>
           <button
             onClick={onManifestoClick}
-            className="bg-primary text-primary-foreground py-4 rounded-2xl font-black uppercase active:scale-95 shadow-industrial flex items-center justify-center gap-2 transition-transform"
+            className="bg-muted py-4 rounded-2xl border border-border font-black text-muted-foreground active:scale-95 uppercase flex items-center justify-center gap-2 transition-transform"
           >
-            <Flag size={16} /> Manifesto
+            <Flag size={16} /> Info
           </button>
         </div>
       </div>
