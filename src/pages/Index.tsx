@@ -11,6 +11,9 @@ import EstelaModal from '../components/modals/EstelaModal';
 import IdentityModal from '../components/modals/IdentityModal';
 import GainsModal from '../components/modals/GainsModal';
 import LogisticsModal from '../components/modals/LogisticsModal';
+import DistributorModal from '../components/modals/DistributorModal';
+import CNCExportModal from '../components/modals/CNCExportModal';
+import MaterialsModal from '../components/modals/MaterialsModal';
 import { IaraModule } from '../lib/iara';
 import { useVoice } from '../hooks/useVoice';
 
@@ -51,6 +54,8 @@ const Index = () => {
   const [activeModal, setActiveModal] = useState<string | null>(null);
   const [project, setProject] = useState<Project | null>(null);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [industrialConfig, setIndustrialConfig] = useState({ mdf: 440, hardware: 38 });
+  const [selectedMaterial, setSelectedMaterial] = useState('mdf_carvalho_malva');
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -209,6 +214,30 @@ const Index = () => {
         isOpen={activeModal === 'logistica'}
         onClose={() => setActiveModal(null)}
       />
+      <DistributorModal
+        isOpen={activeModal === 'distribuidor'}
+        onClose={() => setActiveModal(null)}
+        config={industrialConfig}
+        onSave={(config) => {
+          setIndustrialConfig(config);
+          toast.success('Tabela de preços atualizada!');
+        }}
+      />
+      <CNCExportModal
+        isOpen={activeModal === 'cnc'}
+        onClose={() => setActiveModal(null)}
+        project={project}
+        onExport={() => toast.success('DNA exportado com sucesso!')}
+      />
+      <MaterialsModal
+        isOpen={activeModal === 'materiais'}
+        onClose={() => setActiveModal(null)}
+        selectedMaterial={selectedMaterial}
+        onSelect={(material) => {
+          setSelectedMaterial(material.id);
+          toast.success(`Material ${material.name} selecionado!`);
+        }}
+      />
 
       <div className="w-full max-w-[480px] h-screen sm:h-[880px] bg-background sm:rounded-[3.5rem] overflow-hidden flex flex-col shadow-2xl sm:border-[12px] border-industrial relative">
         {/* Notch */}
@@ -267,17 +296,20 @@ const Index = () => {
         </main>
 
         {/* Tools Drawer */}
-        <ToolsDrawer
-          isOpen={isToolsOpen}
-          onClose={() => setIsToolsOpen(false)}
-          onGalleryClick={() => galleryInputRef.current?.click()}
-          onBrandClick={() => setActiveModal('identidade')}
-          onBentoClick={() => setActiveModal('bento')}
-          onEstelaClick={() => setActiveModal('estela')}
-          onGainsClick={() => setActiveModal('ganhos')}
-          onLogisticsClick={() => setActiveModal('logistica')}
-          onManifestoClick={() => setActiveModal('manifesto')}
-        />
+      <ToolsDrawer
+        isOpen={isToolsOpen}
+        onClose={() => setIsToolsOpen(false)}
+        onGalleryClick={() => galleryInputRef.current?.click()}
+        onBrandClick={() => setActiveModal('identidade')}
+        onBentoClick={() => setActiveModal('bento')}
+        onEstelaClick={() => setActiveModal('estela')}
+        onGainsClick={() => setActiveModal('ganhos')}
+        onLogisticsClick={() => setActiveModal('logistica')}
+        onManifestoClick={() => setActiveModal('manifesto')}
+        onDistributorClick={() => setActiveModal('distribuidor')}
+        onCNCClick={() => setActiveModal('cnc')}
+        onMaterialsClick={() => setActiveModal('materiais')}
+      />
 
         {/* Footer Input */}
         <footer className="bg-card p-5 border-t border-border flex items-center gap-4 z-[100] shadow-2xl pb-10 sm:pb-5">
