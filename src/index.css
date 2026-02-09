@@ -108,3 +108,23 @@
     background: hsl(var(--muted-foreground) / 0.3);
   }
 }
+/* --- REMOVEDOR DE MARCA D'ÁGUA --- */
+
+/* Esconde qualquer link que leve para o Lovable */
+a[href*="lovable.dev"] {
+  display: none !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Esconde elementos comuns de badge */
+.lovable-badge, 
+#lovable-badge,
+[data-lovable-badge] {
+  display: none !important;
+}
+
+/* Garante que o rodapé fique limpo */
+footer a[href*="lovable"] {
+  display: none !important;
+}
