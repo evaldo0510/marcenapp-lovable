@@ -1,3 +1,4 @@
+import Render3D from '../components/Render3D';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { supabase } from '../supabaseClient'; // Certifique-se que esse arquivo existe (o Lovable cria)
