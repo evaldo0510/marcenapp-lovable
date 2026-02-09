@@ -1,21 +1,16 @@
 import { useState, useCallback } from 'react';
-import { IaraModule } from '../lib/iara';
 
 export const useVoice = () => {
   const [isListening, setIsListening] = useState(false);
 
   const speak = useCallback((text: string) => {
-    // Use Gemini TTS for premium voice
-    IaraModule.speakWithTTS(text).catch(() => {
-      // Fallback to browser speech synthesis
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel();
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = 'pt-BR';
-        utterance.rate = 1.0;
-        window.speechSynthesis.speak(utterance);
-      }
-    });
+    if ('speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'pt-BR';
+      utterance.rate = 1.0;
+      window.speechSynthesis.speak(utterance);
+    }
   }, []);
 
   const startListening = useCallback((onResult: (transcript: string) => void) => {
