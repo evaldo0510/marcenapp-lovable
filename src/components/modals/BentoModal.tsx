@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scissors, Box, Ruler, Layers, FileText, Download } from 'lucide-react';
+import { Scissors, Box, Ruler, Layers, FileText, Download, CheckCircle2 } from 'lucide-react';
 import Modal from '../Modal';
 
 interface Project {
@@ -11,13 +11,45 @@ interface Project {
   otimizacao: number;
 }
 
+interface FinanceData {
+  venda: number;
+  lucro: number;
+  custo: number;
+  m2: string;
+  pecas: number;
+}
+
 interface BentoModalProps {
   isOpen: boolean;
   onClose: () => void;
   project: Project | null;
+  finance?: FinanceData | null;
 }
 
-export const BentoModal: React.FC<BentoModalProps> = ({ isOpen, onClose, project }) => {
+export const BentoModal: React.FC<BentoModalProps> = ({ isOpen, onClose, project, finance }) => {
+  const pecas = project?.pecas || [
+    { nome: 'Lateral Esquerda', w: 2400, h: 600, qtd: 1 },
+    { nome: 'Lateral Direita', w: 2400, h: 600, qtd: 1 },
+    { nome: 'Base', w: 1200, h: 600, qtd: 1 },
+    { nome: 'Prateleira', w: 1160, h: 580, qtd: 3 },
+    { nome: 'Tampo', w: 1200, h: 600, qtd: 1 },
+  ];
+  const totalPecas = pecas.reduce((acc, p) => acc + p.qtd, 0);
+
+  const handleExportCNC = () => {
+    const csvContent = [
+      'Peça,Largura(mm),Altura(mm),Quantidade',
+      ...pecas.map(p => `${p.nome},${p.w},${p.h},${p.qtd}`)
+    ].join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `MarcenApp_Corte_${Date.now()}.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="BENTO - Produção" icon={Scissors}>
       <div className="space-y-6">
@@ -31,11 +63,25 @@ export const BentoModal: React.FC<BentoModalProps> = ({ isOpen, onClose, project
               <p className="text-xs text-muted-foreground">Plano de Corte Otimizado</p>
             </div>
           </div>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="bg-card p-3 rounded-xl text-center border border-border">
+              <p className="text-lg font-black text-foreground">{pecas.length}</p>
+              <p className="text-[9px] uppercase text-muted-foreground font-bold">Tipos</p>
+            </div>
+            <div className="bg-card p-3 rounded-xl text-center border border-border">
+              <p className="text-lg font-black text-primary">{totalPecas}</p>
+              <p className="text-[9px] uppercase text-muted-foreground font-bold">Total</p>
+            </div>
+            <div className="bg-card p-3 rounded-xl text-center border border-border">
+              <p className="text-lg font-black text-foreground">{finance?.m2 || '0.00'}</p>
+              <p className="text-[9px] uppercase text-muted-foreground font-bold">m²</p>
+            </div>
+          </div>
         </div>
 
         <div className="space-y-3">
           <h4 className="text-xs font-bold uppercase tracking-widest text-muted-foreground flex items-center gap-2">
-            <Layers size={14} /> Lista de Peças
+            <Layers size={14} /> DNA de Corte
           </h4>
           <div className="bg-card border border-border rounded-2xl overflow-hidden">
             <div className="grid grid-cols-4 gap-2 p-3 bg-muted text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
@@ -44,13 +90,7 @@ export const BentoModal: React.FC<BentoModalProps> = ({ isOpen, onClose, project
               <span>Altura</span>
               <span>Qtd</span>
             </div>
-            {(project?.pecas || [
-              { nome: 'Lateral Esquerda', w: 2400, h: 600, qtd: 1 },
-              { nome: 'Lateral Direita', w: 2400, h: 600, qtd: 1 },
-              { nome: 'Base', w: 1200, h: 600, qtd: 1 },
-              { nome: 'Prateleira', w: 1160, h: 580, qtd: 3 },
-              { nome: 'Tampo', w: 1200, h: 600, qtd: 1 },
-            ]).map((peca, i) => (
+            {pecas.map((peca, i) => (
               <div
                 key={i}
                 className="grid grid-cols-4 gap-2 p-3 text-sm border-t border-border"
@@ -83,9 +123,17 @@ export const BentoModal: React.FC<BentoModalProps> = ({ isOpen, onClose, project
           </div>
         </div>
 
-        <button className="w-full bg-industrial text-industrial-foreground py-4 rounded-2xl font-bold uppercase text-sm flex items-center justify-center gap-3 active:scale-95 transition-transform shadow-lg">
-          <Download size={18} /> Exportar Plano de Corte
-        </button>
+        <div className="grid grid-cols-2 gap-3">
+          <button
+            onClick={handleExportCNC}
+            className="bg-industrial text-industrial-foreground py-4 rounded-2xl font-bold uppercase text-xs flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-lg"
+          >
+            <Download size={16} /> Exportar CSV
+          </button>
+          <button className="bg-primary text-primary-foreground py-4 rounded-2xl font-bold uppercase text-xs flex items-center justify-center gap-2 active:scale-95 transition-transform shadow-industrial">
+            <CheckCircle2 size={16} /> Produzir
+          </button>
+        </div>
       </div>
     </Modal>
   );
