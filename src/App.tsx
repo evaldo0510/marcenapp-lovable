@@ -4,7 +4,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
+// Se você ainda não criou o ClientView, o app vai usar o Index provisoriamente
+// import ClientView from "./pages/ClientView"; 
 
 const queryClient = new QueryClient();
 
@@ -15,9 +16,11 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          {/* Rota do Marceneiro (Painel) */}
           <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          
+          {/* Rota do Cliente (Futura) */}
+          {/* <Route path="/projeto/:id" element={<ClientView />} /> */}
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
