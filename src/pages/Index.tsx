@@ -36,8 +36,6 @@ interface Project {
   otimizacao: number;
 }
 
-const API_KEY = IaraModule.getApiKey();
-
 const Index = () => {
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -92,11 +90,6 @@ const Index = () => {
   };
 
   const handlePipeline = async (imageSrc: string) => {
-    if (!API_KEY) {
-      toast.error('Configure a API Key do Gemini');
-      return;
-    }
-
     setIsProcessing(true);
     setIsToolsOpen(false);
     const pid = Date.now();
@@ -107,7 +100,7 @@ const Index = () => {
     ]);
 
     try {
-      const data = await IaraModule.analyzeEnvironment(imageSrc, API_KEY);
+      const data = await IaraModule.analyzeEnvironment(imageSrc);
       setProject(data.project);
       const fin = FinanceEngine.calculate(data.project.pecas, industrialConfig);
       setFinance(fin);
@@ -117,7 +110,7 @@ const Index = () => {
           m.id === pid + 1 ? { ...m, text: 'Consolidando Fotografia 8K...' } : m
         )
       );
-      const render = await IaraModule.generateMasterRender(imageSrc, data.description, API_KEY);
+      const render = await IaraModule.generateMasterRender(imageSrc, data.description);
 
       setMessages((prev) => prev.filter((m) => m.id !== pid + 1));
       if (render) {

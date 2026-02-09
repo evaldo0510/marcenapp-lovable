@@ -1,1 +1,4 @@
 project_id = "yvkybppkqhidzkstcvom"
+
+[functions.iara-pipeline]
+verify_jwt = false
