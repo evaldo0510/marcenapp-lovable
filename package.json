@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@google/genai": "^1.34.0",    <-- Vital para a Iara
-    "firebase": "^12.9.0",         <-- Vital para o Banco
+    "@google/genai": "^1.34.0",    
+    "firebase": "^12.9.0",         
     "lucide-react": "^0.454.0",
     "react": "^19.2.3",
     "three": "0.170.0"
