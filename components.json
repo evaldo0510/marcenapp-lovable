@@ -1,20 +1,35 @@
-{
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "default",
-  "rsc": false,
-  "tsx": true,
-  "tailwind": {
-    "config": "tailwind.config.ts",
-    "css": "src/index.css",
-    "baseColor": "slate",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  }
+import React, { useRef, useState } from 'react';
+import { Canvas, useFrame } from '@react-three/fiber';
+import { Stage, OrbitControls, useTexture } from '@react-three/drei';
+
+// Um cubo simples que simula o móvel (pode ser substituído por modelos 3D depois)
+const Cabinet = ({ textureUrl }) => {
+  const mesh = useRef();
+  // Rotação suave automática
+  useFrame((state, delta) => (mesh.current.rotation.y += delta * 0.2));
+
+  return (
+    <mesh ref={mesh} position={[0, 0, 0]}>
+      <boxGeometry args={[2, 2, 2]} /> {/* Tamanho do Móvel */}
+      <meshStandardMaterial color={textureUrl ? "white" : "orange"} />
+    </mesh>
+  );
+};
+
+export default function Render3D() {
+  return (
+    <div className="w-full h-[400px] bg-slate-900 rounded-xl overflow-hidden shadow-2xl relative">
+      <div className="absolute top-4 left-4 z-10 bg-black/50 text-white p-2 rounded-lg text-xs font-bold uppercase">
+        ✨ Iara Render Realista
+      </div>
+      
+      <Canvas shadows dpr={[1, 2]} camera={{ fov: 50 }}>
+        {/* Stage cria luz de estúdio profissional automaticamente */}
+        <Stage environment="city" intensity={0.6} contactShadow={false}>
+          <Cabinet />
+        </Stage>
+        <OrbitControls makeDefault autoRotate />
+      </Canvas>
+    </div>
+  );
 }
