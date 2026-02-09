@@ -14,7 +14,7 @@ import LogisticsModal from '../components/modals/LogisticsModal';
 import DistributorModal from '../components/modals/DistributorModal';
 import CNCExportModal from '../components/modals/CNCExportModal';
 import MaterialsModal from '../components/modals/MaterialsModal';
-import { IaraModule } from '../lib/iara';
+import { IaraModule, FinanceEngine } from '../lib/iara';
 import { useVoice } from '../hooks/useVoice';
 
 interface Message {
@@ -36,8 +36,7 @@ interface Project {
   otimizacao: number;
 }
 
-// Note: Add your Gemini API key here or configure via environment
-const API_KEY = "";
+const API_KEY = IaraModule.getApiKey();
 
 const Index = () => {
   const [messages, setMessages] = useState<Message[]>([
@@ -56,6 +55,7 @@ const Index = () => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [industrialConfig, setIndustrialConfig] = useState({ mdf: 440, hardware: 38 });
   const [selectedMaterial, setSelectedMaterial] = useState('mdf_carvalho_malva');
+  const [finance, setFinance] = useState<{ venda: number; lucro: number; custo: number; m2: string; pecas: number } | null>(null);
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -109,6 +109,8 @@ const Index = () => {
     try {
       const data = await IaraModule.analyzeEnvironment(imageSrc, API_KEY);
       setProject(data.project);
+      const fin = FinanceEngine.calculate(data.project.pecas, industrialConfig);
+      setFinance(fin);
 
       setMessages((prev) =>
         prev.map((m) =>
@@ -196,11 +198,13 @@ const Index = () => {
         isOpen={activeModal === 'bento'}
         onClose={() => setActiveModal(null)}
         project={project}
+        finance={finance}
       />
       <EstelaModal
         isOpen={activeModal === 'estela'}
         onClose={() => setActiveModal(null)}
         project={project}
+        finance={finance}
       />
       <IdentityModal
         isOpen={activeModal === 'identidade'}

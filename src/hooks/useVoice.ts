@@ -1,37 +1,22 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useCallback } from 'react';
+import { IaraModule } from '../lib/iara';
 
 export const useVoice = () => {
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([]);
   const [isListening, setIsListening] = useState(false);
 
-  useEffect(() => {
-    const loadVoices = () => {
-      const v = window.speechSynthesis.getVoices();
-      setVoices(v);
-    };
-    window.speechSynthesis.onvoiceschanged = loadVoices;
-    loadVoices();
-  }, []);
-
-  const speak = useCallback(
-    (text: string) => {
+  const speak = useCallback((text: string) => {
+    // Use Gemini TTS for premium voice
+    IaraModule.speakWithTTS(text).catch(() => {
+      // Fallback to browser speech synthesis
       if ('speechSynthesis' in window) {
         window.speechSynthesis.cancel();
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'pt-BR';
-        const premiumVoice =
-          voices.find(
-            (v) =>
-              v.lang.includes('pt') &&
-              (v.name.includes('Natural') || v.name.includes('Google') || v.name.includes('Neural'))
-          ) || voices.find((v) => v.lang.includes('pt'));
-        if (premiumVoice) utterance.voice = premiumVoice;
         utterance.rate = 1.0;
         window.speechSynthesis.speak(utterance);
       }
-    },
-    [voices]
-  );
+    });
+  }, []);
 
   const startListening = useCallback((onResult: (transcript: string) => void) => {
     const Rec = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
