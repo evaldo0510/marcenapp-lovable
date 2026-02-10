@@ -25,7 +25,7 @@ serve(async (req) => {
     const { action, imageBase64, description, prompt } = await req.json();
 
     if (action === "analyze") {
-      return await handleAnalyze(imageBase64, LOVABLE_API_KEY);
+      return await handleAnalyze(imageBase64, prompt, LOVABLE_API_KEY);
     } else if (action === "render") {
       return await handleRender(imageBase64, description, LOVABLE_API_KEY);
     } else if (action === "chat") {
@@ -36,23 +36,22 @@ serve(async (req) => {
       status: 400,
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
-  } catch (error) {
-    console.error("Pipeline error:", error);
-    return new Response(
-      JSON.stringify({ error: error.message || "Internal error" }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      }
-    );
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : "Internal error";
+    console.error("Pipeline error:", msg);
+    return new Response(JSON.stringify({ error: msg }), {
+      status: 500,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 });
 
-async function handleAnalyze(imageBase64: string, apiKey: string) {
-  const systemPrompt = `Você é IARA, o cérebro do MarcenApp.
-REGRAS: 
+async function handleAnalyze(imageBase64: string | undefined, prompt: string | undefined, apiKey: string) {
+  const systemPrompt = `Você é IARA, o cérebro industrial do MarcenApp.
+REGRAS:
 1. Identifique Ripados, Portas de Correr e Detalhes Técnicos exatamente como desenhados.
 2. Retorne JSON puro sem markdown.
+3. Se receber apenas texto sem imagem, analise o pedido e gere um projeto baseado na descrição.
 {
   "description": "archviz photography, studio lighting, luxury textures, carvalho malva wood grain, 8k, photorealistic",
   "project": {
@@ -65,18 +64,22 @@ REGRAS:
   }
 }`;
 
+  const userContent: any[] = [
+    { type: "text", text: prompt || "Analise o rascunho técnico em JSON." },
+  ];
+
+  if (imageBase64) {
+    userContent.push({
+      type: "image_url",
+      image_url: {
+        url: imageBase64.startsWith("data:") ? imageBase64 : `data:image/png;base64,${imageBase64}`,
+      },
+    });
+  }
+
   const messages = [
     { role: "system", content: systemPrompt },
-    {
-      role: "user",
-      content: [
-        { type: "text", text: "Analise o rascunho técnico em JSON." },
-        {
-          type: "image_url",
-          image_url: { url: imageBase64.startsWith("data:") ? imageBase64 : `data:image/png;base64,${imageBase64}` },
-        },
-      ],
-    },
+    { role: "user", content: userContent },
   ];
 
   const resp = await fetch(GATEWAY_URL, {
@@ -92,6 +95,22 @@ REGRAS:
     }),
   });
 
+  if (!resp.ok) {
+    const errText = await resp.text();
+    console.error("AI gateway error:", resp.status, errText);
+    if (resp.status === 429) {
+      return new Response(JSON.stringify({ error: "Rate limit exceeded. Tente novamente em alguns segundos." }), {
+        status: 429, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    if (resp.status === 402) {
+      return new Response(JSON.stringify({ error: "Créditos insuficientes. Adicione créditos ao workspace." }), {
+        status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    throw new Error("AI gateway error: " + resp.status);
+  }
+
   const result = await resp.json();
   const text = result.choices?.[0]?.message?.content;
   if (!text) throw new Error("No analysis response");
@@ -104,29 +123,27 @@ REGRAS:
   });
 }
 
-async function handleRender(
-  imageBase64: string,
-  description: string,
-  apiKey: string
-) {
+async function handleRender(imageBase64: string, description: string, apiKey: string) {
   const prompt = `### TASK: PIXEL-PERFECT SHOWROOM PHOTOGRAPH.
 GEOMETRY SLAVERY: Sketch lines are absolute edges. Convert pencil to sharp luxury finishes.
 Materials: PBR Wood grain [CARVALHO MALVA] and [MATTE WHITE].
 Lighting: Professional ArchViz Soft-box, Global Illumination. 8K Photo Quality.
 CONTEXT: ${description}`;
 
-  const messages = [
-    {
-      role: "user",
-      content: [
-        { type: "text", text: prompt },
-        {
-          type: "image_url",
-          image_url: { url: imageBase64.startsWith("data:") ? imageBase64 : `data:image/png;base64,${imageBase64}` },
-        },
-      ],
-    },
+  const userContent: any[] = [
+    { type: "text", text: prompt },
   ];
+
+  if (imageBase64) {
+    userContent.push({
+      type: "image_url",
+      image_url: {
+        url: imageBase64.startsWith("data:") ? imageBase64 : `data:image/png;base64,${imageBase64}`,
+      },
+    });
+  }
+
+  const messages = [{ role: "user", content: userContent }];
 
   const resp = await fetch(GATEWAY_URL, {
     method: "POST",
@@ -141,25 +158,30 @@ CONTEXT: ${description}`;
     }),
   });
 
+  if (!resp.ok) {
+    const errText = await resp.text();
+    console.error("Render error:", resp.status, errText);
+    return new Response(JSON.stringify({ render: null, error: "Render failed" }), {
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
   const result = await resp.json();
-  const imageUrl =
-    result.choices?.[0]?.message?.images?.[0]?.image_url?.url || null;
+  const imageUrl = result.choices?.[0]?.message?.images?.[0]?.image_url?.url || null;
 
   return new Response(JSON.stringify({ render: imageUrl }), {
     headers: { ...corsHeaders, "Content-Type": "application/json" },
   });
 }
 
-async function handleChat(
-  prompt: string,
-  imageBase64: string | null,
-  apiKey: string
-) {
+async function handleChat(prompt: string, imageBase64: string | null, apiKey: string) {
   const content: any[] = [{ type: "text", text: prompt }];
   if (imageBase64) {
     content.push({
       type: "image_url",
-      image_url: { url: imageBase64.startsWith("data:") ? imageBase64 : `data:image/png;base64,${imageBase64}` },
+      image_url: {
+        url: imageBase64.startsWith("data:") ? imageBase64 : `data:image/png;base64,${imageBase64}`,
+      },
     });
   }
 
@@ -167,7 +189,7 @@ async function handleChat(
     {
       role: "system",
       content:
-        "És a IARA, inteligência do MarcenApp por Evaldo.OS. Analisa rascunhos técnicos com precisão industrial. Responde de forma curta em português.",
+        "És a IARA, inteligência do MarcenApp. Analisa rascunhos técnicos com precisão industrial. Responde de forma curta em português brasileiro.",
     },
     { role: "user", content },
   ];
@@ -184,9 +206,21 @@ async function handleChat(
     }),
   });
 
+  if (!resp.ok) {
+    const errText = await resp.text();
+    console.error("Chat error:", resp.status, errText);
+    if (resp.status === 429 || resp.status === 402) {
+      return new Response(JSON.stringify({ text: "Limite atingido. Tente novamente em breve." }), {
+        status: resp.status, headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    return new Response(JSON.stringify({ text: "Erro no processamento." }), {
+      status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
   const result = await resp.json();
-  const text =
-    result.choices?.[0]?.message?.content || "Erro operacional.";
+  const text = result.choices?.[0]?.message?.content || "Erro operacional.";
 
   return new Response(JSON.stringify({ text }), {
     headers: { ...corsHeaders, "Content-Type": "application/json" },
