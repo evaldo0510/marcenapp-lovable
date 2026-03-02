@@ -4,9 +4,11 @@ import {
   Pencil, Eraser, Trash2, Sparkle, 
   Check, Save, RotateCcw, Share2, Image as ImageIcon,
   Zap, ArrowRight, ShieldCheck, ZoomIn, ZoomOut, Maximize, Wand2,
-  PenTool, Eye, EyeOff, Layers, MapPin, Send, ShieldAlert, PlusCircle, Trash, Hand
+  PenTool, Eye, EyeOff, Layers, MapPin, Send, ShieldAlert, PlusCircle, Trash, Hand,
+  LogOut, GalleryHorizontalEnd
 } from 'lucide-react';
 import { supabase } from '../integrations/supabase/client';
+import Gallery from './Gallery';
 
 const Logo = ({ size = "normal" }) => {
   const s = size === "small" ? "w-8 h-8" : "w-20 h-20";
@@ -33,6 +35,7 @@ export default function Workshop() {
   const [error, setError] = useState(null);
   const [showResultUI, setShowResultUI] = useState(true); 
   const [showFullEnvironment, setShowFullEnvironment] = useState(false);
+  const [showGallery, setShowGallery] = useState(false);
   
   const [pins, setPins] = useState([]);
   const [activePinId, setActivePinId] = useState(null); 
@@ -254,7 +257,8 @@ export default function Workshop() {
       if (fnError) throw fnError;
       
       if (data?.render) {
-        setGeneratedImage(data.render.startsWith('data:') ? data.render : `data:image/png;base64,${data.render}`);
+        const imageUrl = data.render.startsWith('data:') ? data.render : `data:image/png;base64,${data.render}`;
+        setGeneratedImage(imageUrl);
         setStep('result');
         setIsInspecting(false);
         setPins([]);
@@ -262,6 +266,16 @@ export default function Workshop() {
         setIsRefining(false);
         setPanPosition({ x: 0, y: 0 });
         setShowResultUI(true);
+        
+        // Save to gallery
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) {
+          await supabase.from('renders').insert({
+            user_id: user.id,
+            image_url: imageUrl,
+            prompt: description,
+          });
+        }
       } else {
         throw new Error(data?.error || "Não foi possível materializar as alterações.");
       }
@@ -315,7 +329,10 @@ export default function Workshop() {
               <Logo size="small" />
               <h1 className="text-sm font-black tracking-tight">IARA <span className="text-blue-500">STUDIO</span></h1>
             </div>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2">
+              <button onClick={() => setShowGallery(true)} className="p-2 text-white/40 hover:text-blue-400 transition-colors" title="Galeria">
+                <GalleryHorizontalEnd size={16} />
+              </button>
               <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="text-[8px] font-black text-emerald-400 uppercase tracking-widest">ESTADO SÓLIDO</span>
@@ -325,6 +342,9 @@ export default function Workshop() {
                   <RotateCcw size={16} />
                 </button>
               )}
+              <button onClick={() => supabase.auth.signOut()} className="p-2 text-white/20 hover:text-red-400 transition-colors" title="Sair">
+                <LogOut size={14} />
+              </button>
             </div>
           </div>
         </header>
@@ -527,6 +547,8 @@ export default function Workshop() {
           <button onClick={() => setError(null)}><X size={14}/></button>
         </div>
       )}
+
+      {showGallery && <Gallery onClose={() => setShowGallery(false)} />}
 
       <style>{`
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
