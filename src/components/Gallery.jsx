@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../integrations/supabase/client';
-import { X, Trash2, Download, Loader2, Image as ImageIcon } from 'lucide-react';
+import { X, Trash2, Download, Loader2, Image as ImageIcon, Share2, Link2, Check } from 'lucide-react';
 
 export default function Gallery({ onClose }) {
   const [renders, setRenders] = useState([]);
@@ -21,10 +21,25 @@ export default function Gallery({ onClose }) {
     setLoading(false);
   };
 
+  const [copiedId, setCopiedId] = useState(null);
+
   const deleteRender = async (id) => {
     await supabase.from('renders').delete().eq('id', id);
     setRenders(renders.filter(r => r.id !== id));
     if (selectedImage?.id === id) setSelectedImage(null);
+  };
+
+  const shareRender = async (render) => {
+    let token = render.share_token;
+    if (!token) {
+      token = crypto.randomUUID().replace(/-/g, '').slice(0, 16);
+      await supabase.from('renders').update({ share_token: token }).eq('id', render.id);
+      setRenders(renders.map(r => r.id === render.id ? { ...r, share_token: token } : r));
+    }
+    const url = `${window.location.origin}/share/${token}`;
+    await navigator.clipboard.writeText(url);
+    setCopiedId(render.id);
+    setTimeout(() => setCopiedId(null), 2000);
   };
 
   const downloadImage = async (imageUrl, id) => {
@@ -73,7 +88,10 @@ export default function Gallery({ onClose }) {
                 <img src={r.image_url} alt="Render" className="w-full h-full object-cover" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
                   <p className="text-[9px] text-white/60 font-bold truncate flex-1">{r.prompt || 'Sem descrição'}</p>
-                  <div className="flex gap-1">
+                   <div className="flex gap-1">
+                    <button onClick={(e) => { e.stopPropagation(); shareRender(r); }} className="w-7 h-7 bg-white/10 rounded-lg flex items-center justify-center text-white hover:bg-emerald-500 transition-colors">
+                      {copiedId === r.id ? <Check size={12} /> : <Share2 size={12} />}
+                    </button>
                     <button onClick={(e) => { e.stopPropagation(); downloadImage(r.image_url, r.id); }} className="w-7 h-7 bg-white/10 rounded-lg flex items-center justify-center text-white hover:bg-blue-500 transition-colors">
                       <Download size={12} />
                     </button>

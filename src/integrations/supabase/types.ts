@@ -53,6 +53,7 @@ export type Database = {
           id: string
           image_url: string
           prompt: string | null
+          share_token: string | null
           user_id: string
         }
         Insert: {
@@ -60,6 +61,7 @@ export type Database = {
           id?: string
           image_url: string
           prompt?: string | null
+          share_token?: string | null
           user_id: string
         }
         Update: {
@@ -67,6 +69,7 @@ export type Database = {
           id?: string
           image_url?: string
           prompt?: string | null
+          share_token?: string | null
           user_id?: string
         }
         Relationships: []
