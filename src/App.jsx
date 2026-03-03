@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { supabase } from './integrations/supabase/client';
 import Index from './pages/Index';
 import AuthPage from './pages/AuthPage';
+import ResetPassword from './pages/ResetPassword';
+import SharedRender from './pages/SharedRender';
 
 function App() {
   const [session, setSession] = useState(undefined);
@@ -29,6 +31,8 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/auth" element={session ? <Navigate to="/" /> : <AuthPage />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/share/:token" element={<SharedRender />} />
         <Route path="/" element={session ? <Index /> : <Navigate to="/auth" />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>

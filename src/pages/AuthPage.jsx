@@ -106,6 +106,28 @@ export default function AuthPage() {
         >
           {isLogin ? 'Não tem conta? Criar agora' : 'Já tem conta? Entrar'}
         </button>
+
+        {isLogin && (
+          <button
+            type="button"
+            onClick={async () => {
+              if (!email) { setError('Informe seu email primeiro.'); return; }
+              setLoading(true); setError(null);
+              try {
+                const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                  redirectTo: `${window.location.origin}/reset-password`
+                });
+                if (error) throw error;
+                setSuccess('Email de recuperação enviado! Verifique sua caixa de entrada.');
+              } catch (err) {
+                setError(err.message || 'Erro ao enviar email de recuperação.');
+              } finally { setLoading(false); }
+            }}
+            className="w-full text-white/30 text-[10px] font-bold py-1 hover:text-blue-400 transition-colors"
+          >
+            Esqueceu a senha?
+          </button>
+        )}
       </form>
     </div>
   );
