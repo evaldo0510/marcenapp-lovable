@@ -108,7 +108,13 @@ export default function SharedRender() {
               <button
                 onClick={async () => {
                   if (!feedback.trim()) return;
-                  // Store feedback in projects table or just mark as sent
+                  const feedbackType = feedback.includes('✅') ? 'approved' : feedback.includes('🔄') ? 'revision' : 'comment';
+                  await supabase.from('render_feedback').insert({
+                    render_id: render.id,
+                    feedback_text: feedback,
+                    feedback_type: feedbackType,
+                  });
+                  await supabase.from('renders').update({ has_new_feedback: true }).eq('id', render.id);
                   setFeedbackSent(true);
                 }}
                 className="bg-blue-600 text-white px-6 rounded-2xl font-black text-[10px] uppercase tracking-widest active:scale-95 transition-all"
