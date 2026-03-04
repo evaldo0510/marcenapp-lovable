@@ -85,6 +85,9 @@ export default function Gallery({ onClose }) {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             {renders.map(r => (
               <div key={r.id} className="group relative rounded-2xl overflow-hidden border border-white/5 bg-white/5 aspect-video cursor-pointer" onClick={() => setSelectedImage(r)}>
+                {r.has_new_feedback && (
+                  <div className="absolute top-2 right-2 z-10 w-3 h-3 rounded-full bg-emerald-500 animate-pulse border-2 border-black/50" title="Novo feedback!" />
+                )}
                 <img src={r.image_url} alt="Render" className="w-full h-full object-cover" loading="lazy" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-3">
                   <p className="text-[9px] text-white/60 font-bold truncate flex-1">{r.prompt || 'Sem descrição'}</p>

@@ -47,9 +47,45 @@ export type Database = {
         }
         Relationships: []
       }
+      render_feedback: {
+        Row: {
+          client_name: string | null
+          created_at: string
+          feedback_text: string
+          feedback_type: string
+          id: string
+          render_id: string
+        }
+        Insert: {
+          client_name?: string | null
+          created_at?: string
+          feedback_text: string
+          feedback_type?: string
+          id?: string
+          render_id: string
+        }
+        Update: {
+          client_name?: string | null
+          created_at?: string
+          feedback_text?: string
+          feedback_type?: string
+          id?: string
+          render_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "render_feedback_render_id_fkey"
+            columns: ["render_id"]
+            isOneToOne: false
+            referencedRelation: "renders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       renders: {
         Row: {
           created_at: string
+          has_new_feedback: boolean
           id: string
           image_url: string
           prompt: string | null
@@ -58,6 +94,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          has_new_feedback?: boolean
           id?: string
           image_url: string
           prompt?: string | null
@@ -66,6 +103,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          has_new_feedback?: boolean
           id?: string
           image_url?: string
           prompt?: string | null
