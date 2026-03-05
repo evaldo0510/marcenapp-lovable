@@ -14,6 +14,129 @@ export type Database = {
   }
   public: {
     Tables: {
+      budget_items: {
+        Row: {
+          client_id: string | null
+          created_at: string
+          description: string
+          id: string
+          labor_cost: number | null
+          markup: number | null
+          material_cost: number | null
+          pieces: Json | null
+          project_id: string | null
+          status: string | null
+          tax_rate: number | null
+          total: number | null
+          user_id: string
+        }
+        Insert: {
+          client_id?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          labor_cost?: number | null
+          markup?: number | null
+          material_cost?: number | null
+          pieces?: Json | null
+          project_id?: string | null
+          status?: string | null
+          tax_rate?: number | null
+          total?: number | null
+          user_id: string
+        }
+        Update: {
+          client_id?: string | null
+          created_at?: string
+          description?: string
+          id?: string
+          labor_cost?: number | null
+          markup?: number | null
+          material_cost?: number | null
+          pieces?: Json | null
+          project_id?: string | null
+          status?: string | null
+          tax_rate?: number | null
+          total?: number | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "budget_items_client_id_fkey"
+            columns: ["client_id"]
+            isOneToOne: false
+            referencedRelation: "clients"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "budget_items_project_id_fkey"
+            columns: ["project_id"]
+            isOneToOne: false
+            referencedRelation: "projects"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      clients: {
+        Row: {
+          address: string | null
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          phone: string | null
+          status: string | null
+          user_id: string
+        }
+        Insert: {
+          address?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          phone?: string | null
+          status?: string | null
+          user_id: string
+        }
+        Update: {
+          address?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string | null
+          status?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      diary_entries: {
+        Row: {
+          category: string | null
+          content: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          category?: string | null
+          content: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          category?: string | null
+          content?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       projects: {
         Row: {
           client_name: string
@@ -24,6 +147,7 @@ export type Database = {
           project_name: string
           status: string | null
           texture_url: string | null
+          user_id: string | null
         }
         Insert: {
           client_name: string
@@ -34,6 +158,7 @@ export type Database = {
           project_name: string
           status?: string | null
           texture_url?: string | null
+          user_id?: string | null
         }
         Update: {
           client_name?: string
@@ -44,6 +169,7 @@ export type Database = {
           project_name?: string
           status?: string | null
           texture_url?: string | null
+          user_id?: string | null
         }
         Relationships: []
       }
