@@ -14,6 +14,10 @@ import ChatBubble from './ChatBubble';
 import MaskEditor from './MaskEditor';
 import UploadPreview from './UploadPreview';
 import ImageInspector from './ImageInspector';
+import PatioTab from './tabs/PatioTab';
+import ClientesTab from './tabs/ClientesTab';
+import OrcarTab from './tabs/OrcarTab';
+import DiarioTab from './tabs/DiarioTab';
 
 const Logo = ({ size = "normal" }) => {
   const s = size === "small" ? "w-8 h-8" : "w-20 h-20";
@@ -471,7 +475,7 @@ export default function Workshop() {
                   ) : (
                     <div className="space-y-1">
                       {messages.map((m) => (
-                        <ChatBubble key={m.id} msg={m} onInspect={(src) => openInspector(src)} />
+                        <ChatBubble key={m.id} msg={m} onInspect={(src) => openInspector(src)} onMaskEdit={(src) => setMaskEditorData(src)} onMaterialChange={(src) => { setMaskEditorData(src); }} />
                       ))}
                       {chatLoading && (
                         <div className="flex justify-start px-3 mb-2">
@@ -656,10 +660,10 @@ export default function Workshop() {
       )}
 
       {/* ===== OTHER TABS ===== */}
-      {activeTab === 'patio' && <PlaceholderTab title="Pátio" icon={Camera} />}
-      {activeTab === 'clientes' && <PlaceholderTab title="Clientes" icon={GalleryHorizontalEnd} />}
-      {activeTab === 'orcar' && <PlaceholderTab title="Orçamentos" icon={Zap} />}
-      {activeTab === 'diario' && <PlaceholderTab title="Diário" icon={Save} />}
+      {activeTab === 'patio' && <PatioTab />}
+      {activeTab === 'clientes' && <ClientesTab />}
+      {activeTab === 'orcar' && <OrcarTab />}
+      {activeTab === 'diario' && <DiarioTab />}
 
       {/* BOTTOM NAV */}
       <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
