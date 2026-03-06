@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../../integrations/supabase/client';
-import { Plus, Wallet, Calculator, Trash2, X, DollarSign, Layers, Share2 } from 'lucide-react';
+import { Plus, Wallet, Trash2, X, Share2, Users, Hammer, ChevronDown } from 'lucide-react';
 
 export default function OrcarTab() {
   const [budgets, setBudgets] = useState([]);
+  const [clients, setClients] = useState([]);
+  const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
-  const [form, setForm] = useState({ description: '', material_cost: '', labor_cost: '', markup: '2.2', tax_rate: '0.12' });
+  const [form, setForm] = useState({ description: '', material_cost: '', labor_cost: '', markup: '2.2', tax_rate: '0.12', client_id: '', project_id: '' });
 
-  useEffect(() => { loadBudgets(); }, []);
+  useEffect(() => { loadAll(); }, []);
 
-  const loadBudgets = async () => {
+  const loadAll = async () => {
     setLoading(true);
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return setLoading(false);
-    const { data } = await supabase.from('budget_items').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
-    if (data) setBudgets(data);
+    const [bRes, cRes, pRes] = await Promise.all([
+      supabase.from('budget_items').select('*, clients(name), projects(project_name)').eq('user_id', user.id).order('created_at', { ascending: false }),
+      supabase.from('clients').select('id, name').eq('user_id', user.id).order('name'),
+      supabase.from('projects').select('id, project_name').eq('user_id', user.id).order('created_at', { ascending: false }),
+    ]);
+    if (bRes.data) setBudgets(bRes.data);
+    if (cRes.data) setClients(cRes.data);
+    if (pRes.data) setProjects(pRes.data);
     setLoading(false);
   };
 
@@ -41,10 +49,12 @@ export default function OrcarTab() {
       markup: parseFloat(form.markup) || 2.2,
       tax_rate: parseFloat(form.tax_rate) || 0.12,
       total,
+      client_id: form.client_id || null,
+      project_id: form.project_id || null,
     });
-    setForm({ description: '', material_cost: '', labor_cost: '', markup: '2.2', tax_rate: '0.12' });
+    setForm({ description: '', material_cost: '', labor_cost: '', markup: '2.2', tax_rate: '0.12', client_id: '', project_id: '' });
     setShowForm(false);
-    loadBudgets();
+    loadAll();
   };
 
   const deleteBudget = async (id) => {
@@ -53,12 +63,15 @@ export default function OrcarTab() {
   };
 
   const shareBudget = (b) => {
-    const text = `*Orçamento MarcenApp*\n${b.description}\nMaterial: R$ ${Number(b.material_cost).toFixed(2)}\nMão de Obra: R$ ${Number(b.labor_cost).toFixed(2)}\n*Total: R$ ${Number(b.total).toFixed(2)}*`;
-    const url = `https://wa.me/?text=${encodeURIComponent(text)}`;
-    window.open(url, '_blank');
+    const clientName = b.clients?.name || 'Cliente';
+    const projectName = b.projects?.project_name || '';
+    const text = `*Orçamento MarcenApp*\n${b.description}${projectName ? `\nObra: ${projectName}` : ''}\nCliente: ${clientName}\nMaterial: R$ ${Number(b.material_cost).toFixed(2)}\nMão de Obra: R$ ${Number(b.labor_cost).toFixed(2)}\n*Total: R$ ${Number(b.total).toFixed(2)}*`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   const totalGeral = budgets.reduce((sum, b) => sum + Number(b.total || 0), 0);
+
+  const selectClass = "w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white outline-none focus:border-blue-500 appearance-none";
 
   return (
     <div className="h-full flex flex-col pb-20">
@@ -72,8 +85,6 @@ export default function OrcarTab() {
             <Plus size={20} />
           </button>
         </div>
-
-        {/* Summary Card */}
         <div className="bg-gradient-to-br from-blue-600/20 to-blue-900/20 border border-blue-500/20 rounded-2xl p-5 mb-4">
           <p className="text-[9px] text-blue-300 font-black uppercase tracking-widest mb-1">Faturamento Total</p>
           <p className="text-3xl font-black text-white">R$ {totalGeral.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
@@ -93,8 +104,22 @@ export default function OrcarTab() {
           </div>
         ) : budgets.map(b => (
           <div key={b.id} className="bg-white/5 border border-white/5 rounded-2xl p-4">
-            <div className="flex items-start justify-between mb-3">
-              <h3 className="text-sm font-black text-white flex-1">{b.description}</h3>
+            <div className="flex items-start justify-between mb-2">
+              <div className="flex-1">
+                <h3 className="text-sm font-black text-white">{b.description}</h3>
+                <div className="flex flex-wrap gap-2 mt-1">
+                  {b.clients?.name && (
+                    <span className="text-[9px] font-bold text-blue-300 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <Users size={8} /> {b.clients.name}
+                    </span>
+                  )}
+                  {b.projects?.project_name && (
+                    <span className="text-[9px] font-bold text-amber-300 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                      <Hammer size={8} /> {b.projects.project_name}
+                    </span>
+                  )}
+                </div>
+              </div>
               <div className="flex gap-1">
                 <button onClick={() => shareBudget(b)} className="p-2 text-white/20 hover:text-emerald-400 transition-colors"><Share2 size={14} /></button>
                 <button onClick={() => deleteBudget(b.id)} className="p-2 text-white/20 hover:text-red-400 transition-colors"><Trash2 size={14} /></button>
@@ -121,11 +146,28 @@ export default function OrcarTab() {
 
       {showForm && (
         <div className="fixed inset-0 z-[300] bg-black/70 backdrop-blur-md flex items-end justify-center">
-          <div className="w-full max-w-lg bg-[#0f1729] border-t border-white/10 rounded-t-[2rem] p-6 space-y-3" style={{ animation: 'fadeInUp 0.3s ease-out' }}>
+          <div className="w-full max-w-lg bg-[#0f1729] border-t border-white/10 rounded-t-[2rem] p-6 space-y-3 max-h-[85vh] overflow-y-auto" style={{ animation: 'fadeInUp 0.3s ease-out' }}>
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-sm font-black text-white uppercase tracking-widest">Novo Orçamento</h3>
               <button onClick={() => setShowForm(false)} className="p-2 text-white/40"><X size={18} /></button>
             </div>
+
+            {/* Client & Project selectors */}
+            <div className="relative">
+              <select value={form.client_id} onChange={e => setForm({ ...form, client_id: e.target.value })} className={selectClass}>
+                <option value="" className="bg-[#0f1729]">Selecionar cliente (opcional)</option>
+                {clients.map(c => <option key={c.id} value={c.id} className="bg-[#0f1729]">{c.name}</option>)}
+              </select>
+              <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" />
+            </div>
+            <div className="relative">
+              <select value={form.project_id} onChange={e => setForm({ ...form, project_id: e.target.value })} className={selectClass}>
+                <option value="" className="bg-[#0f1729]">Vincular a obra (opcional)</option>
+                {projects.map(p => <option key={p.id} value={p.id} className="bg-[#0f1729]">{p.project_name}</option>)}
+              </select>
+              <ChevronDown size={14} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30 pointer-events-none" />
+            </div>
+
             <input value={form.description} onChange={e => setForm({ ...form, description: e.target.value })} placeholder="Descrição (ex: Cozinha Planejada)" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white outline-none focus:border-blue-500 placeholder:text-white/30" />
             <div className="grid grid-cols-2 gap-3">
               <input value={form.material_cost} onChange={e => setForm({ ...form, material_cost: e.target.value })} placeholder="Material (R$)" type="number" className="bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white outline-none focus:border-blue-500 placeholder:text-white/30" />
@@ -141,7 +183,6 @@ export default function OrcarTab() {
                 <input value={form.tax_rate} onChange={e => setForm({ ...form, tax_rate: e.target.value })} type="number" step="0.01" className="w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 text-sm text-white outline-none focus:border-blue-500" />
               </div>
             </div>
-            {/* Live Preview */}
             <div className="bg-blue-500/10 border border-blue-500/20 rounded-2xl p-4 text-center">
               <p className="text-[9px] text-blue-300 font-bold uppercase tracking-widest mb-1">Total Estimado</p>
               <p className="text-2xl font-black text-blue-400">R$ {calcTotal().toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
