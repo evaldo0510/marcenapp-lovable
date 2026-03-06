@@ -5,11 +5,12 @@ import {
   Check, Save, RotateCcw, Share2, Image as ImageIcon,
   Zap, ArrowRight, ShieldAlert, ZoomIn, ZoomOut, Wand2,
   PenTool, Eye, EyeOff, MapPin, Send, Trash, Hand,
-  LogOut, GalleryHorizontalEnd, Mic, X
+  LogOut, GalleryHorizontalEnd, Mic, X, Settings
 } from 'lucide-react';
 import { supabase } from '../integrations/supabase/client';
 import Gallery from './Gallery';
 import BottomNav from './BottomNav';
+import SettingsPanel from './SettingsPanel';
 import ChatBubble from './ChatBubble';
 import MaskEditor from './MaskEditor';
 import UploadPreview from './UploadPreview';
@@ -73,6 +74,7 @@ export default function Workshop() {
   const [uploadPreviewData, setUploadPreviewData] = useState(null);
   const [maskEditorData, setMaskEditorData] = useState(null);
   const [inspectorData, setInspectorData] = useState(null);
+  const [showSettings, setShowSettings] = useState(false);
 
   // --- CHAT ---
   const [messages, setMessages] = useState([]);
@@ -444,6 +446,9 @@ export default function Workshop() {
                       <RotateCcw size={16} />
                     </button>
                   )}
+                  <button onClick={() => setShowSettings(true)} className="p-2 text-white/20 hover:text-white/60 transition-colors" title="Configurações">
+                    <Settings size={14} />
+                  </button>
                   <button onClick={() => supabase.auth.signOut()} className="p-2 text-white/20 hover:text-red-400 transition-colors" title="Sair">
                     <LogOut size={14} />
                   </button>
@@ -697,6 +702,7 @@ export default function Workshop() {
       {uploadPreviewData && <UploadPreview photo={uploadPreviewData} onCancel={() => setUploadPreviewData(null)} onConfirm={handleUploadPreviewConfirm} />}
       {inspectorData && <ImageInspector photo={inspectorData} onCancel={() => setInspectorData(null)} onSelectForEdit={handleInspectorEdit} onGenerateMultiView={handleInspectorMultiView} />}
       {maskEditorData && <MaskEditor photo={maskEditorData} onCancel={() => setMaskEditorData(null)} onConfirm={handleMaskConfirm} />}
+      {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
 
       <style>{`
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
