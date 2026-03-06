@@ -18,6 +18,7 @@ import PatioTab from './tabs/PatioTab';
 import ClientesTab from './tabs/ClientesTab';
 import OrcarTab from './tabs/OrcarTab';
 import DiarioTab from './tabs/DiarioTab';
+import FeedbackNotification from './FeedbackNotification';
 
 const Logo = ({ size = "normal" }) => {
   const s = size === "small" ? "w-8 h-8" : "w-20 h-20";
@@ -667,6 +668,7 @@ export default function Workshop() {
 
       {/* BOTTOM NAV */}
       <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
+      <FeedbackNotification />
 
       {/* LOADING OVERLAY */}
       {loading && (
