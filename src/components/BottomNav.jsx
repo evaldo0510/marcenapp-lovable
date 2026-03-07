@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { Hammer, Users, Sparkles, Wallet, ClipboardList } from 'lucide-react';
 
 const tabs = [
@@ -9,7 +9,7 @@ const tabs = [
   { id: 'diario', label: 'Diário', icon: ClipboardList },
 ];
 
-export default function BottomNav({ activeTab, onTabChange }) {
+function BottomNav({ activeTab, onTabChange }) {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-[200] bg-[#020617]/95 backdrop-blur-xl border-t border-white/5 pb-[env(safe-area-inset-bottom)]">
       <div className="flex items-end justify-around px-2 pt-1">
@@ -55,3 +55,5 @@ export default function BottomNav({ activeTab, onTabChange }) {
     </nav>
   );
 }
+
+export default memo(BottomNav);
