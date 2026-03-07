@@ -5,8 +5,9 @@ import {
   Check, Save, RotateCcw, Share2, Image as ImageIcon,
   Zap, ArrowRight, ShieldAlert, ZoomIn, ZoomOut, Wand2,
   PenTool, Eye, EyeOff, MapPin, Send, Trash, Hand,
-  LogOut, GalleryHorizontalEnd, Mic, X, Settings
+  LogOut, GalleryHorizontalEnd, Mic, MicOff, X, Settings, Volume2, VolumeX
 } from 'lucide-react';
+import useVoiceControl from '../hooks/useVoiceControl';
 import { supabase } from '../integrations/supabase/client';
 import Gallery from './Gallery';
 import BottomNav from './BottomNav';
