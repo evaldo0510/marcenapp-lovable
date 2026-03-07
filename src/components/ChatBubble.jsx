@@ -1,7 +1,7 @@
-import React from 'react';
-import { CheckCheck, MapPin, Hammer, Maximize2, Download } from 'lucide-react';
+import React, { memo } from 'react';
+import { CheckCheck, MapPin, Hammer, Maximize2 } from 'lucide-react';
 
-export default function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChange }) {
+function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChange }) {
   const isUser = msg.from === 'user';
   const textContent = typeof msg.text === 'object' ? JSON.stringify(msg.text) : String(msg.text || '');
 
@@ -20,13 +20,13 @@ export default function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChang
             <img 
               src={msg.src} 
               alt="Render" 
-              className="w-full max-h-64 object-cover group-hover:scale-105 transition-transform duration-300" 
+              className="w-full max-h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+              loading="lazy"
             />
           </div>
         )}
         <p className="text-[13px] leading-relaxed whitespace-pre-wrap">{textContent}</p>
         
-        {/* Action Buttons for renders */}
         {msg.type === 'image' && msg.src && !isUser && (
           <div className="mt-2 flex gap-2 overflow-x-auto pb-1">
             <button 
@@ -58,3 +58,5 @@ export default function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChang
     </div>
   );
 }
+
+export default memo(ChatBubble);
