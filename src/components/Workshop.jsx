@@ -522,18 +522,32 @@ export default function Workshop() {
                     <button onClick={triggerUpload} className="p-2 text-white/40 active:scale-90">
                       <Camera size={20} />
                     </button>
-                    <div className="flex-1 bg-white/5 border border-white/10 rounded-full px-4 py-3 flex items-center">
+                    {voice.isSpeaking && (
+                      <button onClick={voice.stopSpeaking} className="p-2 text-blue-400 animate-pulse active:scale-90">
+                        <VolumeX size={18} />
+                      </button>
+                    )}
+                    <div className={`flex-1 border rounded-full px-4 py-3 flex items-center transition-all ${voice.isListening ? 'bg-red-500/10 border-red-500/30' : 'bg-white/5 border-white/10'}`}>
                       <input
                         value={chatInput}
                         onChange={e => setChatInput(e.target.value)}
                         onKeyDown={e => e.key === 'Enter' && sendChat()}
-                        placeholder="Pergunte à IARA..."
+                        placeholder={voice.isListening ? "🎤 Ouvindo..." : "Pergunte à IARA..."}
                         className="flex-1 bg-transparent text-white text-sm outline-none placeholder:text-white/30"
                       />
                     </div>
-                    <button onClick={sendChat} className="w-11 h-11 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg active:scale-90 transition-all">
-                      {chatInput.trim() ? <Send size={16} /> : <Mic size={16} />}
-                    </button>
+                    {chatInput.trim() ? (
+                      <button onClick={sendChat} className="w-11 h-11 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg active:scale-90 transition-all">
+                        <Send size={16} />
+                      </button>
+                    ) : (
+                      <button
+                        onClick={voice.isListening ? () => { voice.stopListening(); if (voice.transcript) setTimeout(sendChat, 300); } : voice.startListening}
+                        className={`w-11 h-11 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-all ${voice.isListening ? 'bg-red-500 animate-pulse' : 'bg-blue-600'} text-white`}
+                      >
+                        {voice.isListening ? <MicOff size={16} /> : <Mic size={16} />}
+                      </button>
+                    )}
                   </div>
                 </div>
               </div>
