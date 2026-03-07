@@ -328,8 +328,11 @@ export default function Workshop() {
         body: { action: 'chat', prompt: text, imageBase64: generatedImage || null }
       });
       if (fnError) throw fnError;
-      const iaraMsg = { id: Date.now() + 1, from: 'iara', text: data?.text || 'Erro operacional.', type: 'text', time: timeStr() };
+      const replyText = data?.text || 'Erro operacional.';
+      const iaraMsg = { id: Date.now() + 1, from: 'iara', text: replyText, type: 'text', time: timeStr() };
       setMessages(prev => [...prev, iaraMsg]);
+      // TTS: speak the response
+      if (voice.ttsSupported) voice.speak(replyText);
     } catch (e) {
       setMessages(prev => [...prev, { id: Date.now() + 1, from: 'iara', text: 'Erro no processamento.', type: 'text', time: timeStr() }]);
     } finally {
