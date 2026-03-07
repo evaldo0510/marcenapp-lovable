@@ -82,7 +82,7 @@ export default function Workshop() {
   const [chatInput, setChatInput] = useState('');
   const [chatLoading, setChatLoading] = useState(false);
   const scrollRef = useRef(null);
-
+  const voice = useVoiceControl();
   // --- BOOT ---
   useEffect(() => {
     const init = async () => {
