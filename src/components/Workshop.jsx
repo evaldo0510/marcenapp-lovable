@@ -99,6 +99,10 @@ export default function Workshop() {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight, behavior: 'smooth' });
   }, [messages, chatLoading]);
 
+  // Sync voice transcript to chat input
+  useEffect(() => {
+    if (voice.transcript) setChatInput(voice.transcript);
+  }, [voice.transcript]);
   // --- UTILS ---
   const getCoords = useCallback((e) => {
     if (!canvasRef.current) return { x: 0, y: 0 };
