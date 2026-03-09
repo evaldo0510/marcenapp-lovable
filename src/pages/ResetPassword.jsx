@@ -65,9 +65,9 @@ export default function ResetPassword() {
 
   if (!isRecovery) {
     return (
-      <div className="fixed inset-0 bg-[#020617] flex flex-col items-center justify-center px-8 text-center">
-        <h1 className="text-xl font-black text-white mb-2">Link Inválido</h1>
-        <p className="text-white/40 text-xs mb-8">Este link de recuperação expirou ou é inválido.</p>
+      <div className="fixed inset-0 bg-white flex flex-col items-center justify-center px-8 text-center">
+        <h1 className="text-xl font-black text-[#1a2a3a] mb-2">Link Inválido</h1>
+        <p className="text-[#1a2a3a]/40 text-xs mb-8">Este link de recuperação expirou ou é inválido.</p>
         <a href="/auth" className="text-blue-500 text-xs font-bold uppercase tracking-widest">Voltar ao Login</a>
       </div>
     );
