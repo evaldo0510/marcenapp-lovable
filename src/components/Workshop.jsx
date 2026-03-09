@@ -566,7 +566,7 @@ export default function Workshop() {
       {/* Lazy modals */}
       <Suspense fallback={null}>
         {showGallery && <Gallery onClose={() => setShowGallery(false)} />}
-        {uploadPreviewData && <UploadPreview photo={uploadPreviewData} onCancel={() => setUploadPreviewData(null)} onConfirm={handleUploadPreviewConfirm} />}
+        {uploadPreviewData && <UploadPreview photo={uploadPreviewData} onCancel={() => setUploadPreviewData(null)} onConfirm={handleUploadPreviewConfirm} onDirectRender={handleDirectRender} />}
         {inspectorData && <ImageInspector photo={inspectorData} onCancel={() => setInspectorData(null)} onSelectForEdit={handleInspectorEdit} onGenerateMultiView={handleInspectorMultiView} />}
         {maskEditorData && <MaskEditor photo={maskEditorData} onCancel={() => setMaskEditorData(null)} onConfirm={handleMaskConfirm} />}
         {showSettings && <SettingsPanel onClose={() => setShowSettings(false)} />}
