@@ -26,7 +26,7 @@ function BottomNav({ activeTab, onTabChange }) {
               >
                 <HexLogo size={56} active={activeTab === 'iara'} />
                 <span className={`block text-center text-[8px] font-black uppercase tracking-[0.2em] transition-colors mt-0.5 ${
-                  activeTab === 'iara' ? 'text-[#007AFF]' : 'text-white/25'
+                  activeTab === 'iara' ? 'text-[#007AFF]' : 'text-[#1a2a3a]/30'
                 }`}>
                   Iara
                 </span>
