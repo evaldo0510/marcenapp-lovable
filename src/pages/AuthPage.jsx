@@ -123,7 +123,7 @@ export default function AuthPage() {
                 setError(err.message || 'Erro ao enviar email de recuperação.');
               } finally { setLoading(false); }
             }}
-            className="w-full text-white/30 text-[10px] font-bold py-1 hover:text-[#007AFF] transition-colors"
+            className="w-full text-[#1a2a3a]/30 text-[10px] font-bold py-1 hover:text-[#007AFF] transition-colors"
           >
             Esqueceu a senha?
           </button>

@@ -42,7 +42,7 @@ function BottomNav({ activeTab, onTabChange }) {
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
               className={`flex flex-col items-center gap-1 w-12 py-2.5 transition-all active:scale-90 ${
-                isActive ? 'text-[#007AFF] scale-110' : 'text-[#54656F] opacity-40'
+                isActive ? 'text-[#007AFF] scale-110' : 'text-[#1a2a3a]/30'
               }`}
             >
               <Icon
