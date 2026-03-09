@@ -22,7 +22,6 @@ export default function PlantaTab({ generatedImage }) {
   const floor = FLOORS.find(f => f.id === activeFloor);
   const activeFloorRenders = floorRenders[activeFloor] || [];
 
-  // Load floor renders
   const loadFloorRenders = useCallback(async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
@@ -37,7 +36,6 @@ export default function PlantaTab({ generatedImage }) {
     }
   }, []);
 
-  // Load available renders for picker
   const loadAvailableRenders = useCallback(async () => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
@@ -47,22 +45,12 @@ export default function PlantaTab({ generatedImage }) {
 
   useEffect(() => { loadFloorRenders(); }, [loadFloorRenders]);
 
-  const openPicker = () => {
-    loadAvailableRenders();
-    setShowRenderPicker(true);
-    setSelectedRender(null);
-  };
+  const openPicker = () => { loadAvailableRenders(); setShowRenderPicker(true); setSelectedRender(null); };
 
   const assignRender = async (render) => {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
-    await supabase.from('floor_renders').insert({
-      user_id: user.id,
-      floor_id: activeFloor,
-      render_id: render.id,
-      image_url: render.image_url,
-      label: render.prompt || `Render ${floor?.label}`,
-    });
+    await supabase.from('floor_renders').insert({ user_id: user.id, floor_id: activeFloor, render_id: render.id, image_url: render.image_url, label: render.prompt || `Render ${floor?.label}` });
     setShowRenderPicker(false);
     loadFloorRenders();
   };
@@ -71,12 +59,7 @@ export default function PlantaTab({ generatedImage }) {
     if (!generatedImage) return;
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return;
-    await supabase.from('floor_renders').insert({
-      user_id: user.id,
-      floor_id: activeFloor,
-      image_url: generatedImage,
-      label: `Render ${floor?.label}`,
-    });
+    await supabase.from('floor_renders').insert({ user_id: user.id, floor_id: activeFloor, image_url: generatedImage, label: `Render ${floor?.label}` });
     loadFloorRenders();
   };
 
@@ -116,8 +99,8 @@ export default function PlantaTab({ generatedImage }) {
       ctx.lineTo(cx, y - floorH + floorW * Math.sin(isoAngle));
       ctx.lineTo(cx - floorW * Math.cos(isoAngle), y - floorH + floorW * Math.sin(isoAngle) * 0.5);
       ctx.closePath();
-      ctx.fillStyle = isActive ? f.color + '40' : hasRenders ? f.color + '20' : '#ffffff10';
-      ctx.strokeStyle = isActive ? f.color : hasRenders ? f.color + '60' : '#ffffff30';
+      ctx.fillStyle = isActive ? f.color + '30' : hasRenders ? f.color + '15' : '#007AFF08';
+      ctx.strokeStyle = isActive ? f.color : hasRenders ? f.color + '60' : '#007AFF30';
       ctx.lineWidth = isActive ? 2 : 1;
       ctx.fill();
       ctx.stroke();
@@ -129,8 +112,8 @@ export default function PlantaTab({ generatedImage }) {
       ctx.lineTo(cx, y + floorW * Math.sin(isoAngle) - floorH + floorH);
       ctx.lineTo(cx + floorW * Math.cos(isoAngle), y + floorW * Math.sin(isoAngle) * 0.5);
       ctx.closePath();
-      ctx.fillStyle = isActive ? f.color + '25' : '#ffffff08';
-      ctx.strokeStyle = isActive ? f.color + '80' : '#ffffff20';
+      ctx.fillStyle = isActive ? f.color + '18' : '#007AFF05';
+      ctx.strokeStyle = isActive ? f.color + '80' : '#007AFF20';
       ctx.fill();
       ctx.stroke();
 
@@ -141,8 +124,8 @@ export default function PlantaTab({ generatedImage }) {
       ctx.lineTo(cx, y + floorW * Math.sin(isoAngle) - floorH + floorH);
       ctx.lineTo(cx - floorW * Math.cos(isoAngle), y + floorW * Math.sin(isoAngle) * 0.5);
       ctx.closePath();
-      ctx.fillStyle = isActive ? f.color + '18' : '#ffffff05';
-      ctx.strokeStyle = isActive ? f.color + '60' : '#ffffff15';
+      ctx.fillStyle = isActive ? f.color + '10' : '#007AFF03';
+      ctx.strokeStyle = isActive ? f.color + '60' : '#007AFF15';
       ctx.fill();
       ctx.stroke();
 
@@ -169,7 +152,7 @@ export default function PlantaTab({ generatedImage }) {
         ctx.textAlign = 'center';
         ctx.fillText(f.label, cx, y - floorH + floorW * Math.sin(isoAngle) * 0.5 + 5);
         ctx.font = '9px Inter, sans-serif';
-        ctx.fillStyle = '#ffffff80';
+        ctx.fillStyle = '#1a2a3a80';
         ctx.fillText(f.height, cx, y - floorH + floorW * Math.sin(isoAngle) * 0.5 + 20);
       }
 
@@ -177,7 +160,7 @@ export default function PlantaTab({ generatedImage }) {
     });
 
     // Height indicator
-    ctx.strokeStyle = '#007AFF40';
+    ctx.strokeStyle = '#007AFF30';
     ctx.lineWidth = 1;
     ctx.setLineDash([4, 4]);
     ctx.beginPath();
@@ -188,22 +171,21 @@ export default function PlantaTab({ generatedImage }) {
   }, [activeFloor, zoom, rotation, floorRenders]);
 
   return (
-    <div className="h-full flex flex-col pb-20">
-      {/* Header */}
+    <div className="h-full flex flex-col pb-20 bg-white">
       <div className="px-6 pt-14 pb-4">
         <div className="flex items-center justify-between mb-2">
           <div>
-            <h1 className="text-xl font-black text-white tracking-tight font-['Orbitron',sans-serif]">Elevador</h1>
-            <p className="text-[10px] text-white/30 font-bold uppercase tracking-widest">Planta de Níveis</p>
+            <h1 className="text-xl font-black text-[#1a2a3a] tracking-tight font-['Orbitron',sans-serif]">Elevador</h1>
+            <p className="text-[10px] text-[#1a2a3a]/30 font-bold uppercase tracking-widest">Planta de Níveis</p>
           </div>
           <div className="flex items-center gap-2">
-            <button onClick={() => setZoom(z => Math.min(z + 0.2, 2))} className="p-2 bg-white/5 rounded-xl text-white/40 active:scale-90 border border-white/5">
+            <button onClick={() => setZoom(z => Math.min(z + 0.2, 2))} className="p-2 bg-[#007AFF]/5 rounded-xl text-[#007AFF]/40 active:scale-90 border border-[#007AFF]/10">
               <ZoomIn size={16} />
             </button>
-            <button onClick={() => setZoom(z => Math.max(z - 0.2, 0.5))} className="p-2 bg-white/5 rounded-xl text-white/40 active:scale-90 border border-white/5">
+            <button onClick={() => setZoom(z => Math.max(z - 0.2, 0.5))} className="p-2 bg-[#007AFF]/5 rounded-xl text-[#007AFF]/40 active:scale-90 border border-[#007AFF]/10">
               <ZoomOut size={16} />
             </button>
-            <button onClick={() => setRotation(r => r + 45)} className="p-2 bg-white/5 rounded-xl text-white/40 active:scale-90 border border-white/5">
+            <button onClick={() => setRotation(r => r + 45)} className="p-2 bg-[#007AFF]/5 rounded-xl text-[#007AFF]/40 active:scale-90 border border-[#007AFF]/10">
               <RotateCcw size={16} />
             </button>
           </div>
@@ -211,49 +193,35 @@ export default function PlantaTab({ generatedImage }) {
       </div>
 
       {/* 3D Viewport */}
-      <div className="flex-1 relative mx-4 mb-4 bg-white/[0.02] rounded-3xl border border-white/5 overflow-hidden min-h-0">
-        <canvas
-          ref={canvasRef}
-          width={400}
-          height={500}
-          className="w-full h-full"
-          style={{ transform: `scale(${zoom}) rotate(${rotation}deg)`, transition: 'transform 0.3s ease' }}
-        />
+      <div className="flex-1 relative mx-4 mb-4 bg-[#007AFF]/[0.02] rounded-3xl border border-[#007AFF]/10 overflow-hidden min-h-0">
+        <canvas ref={canvasRef} width={400} height={500} className="w-full h-full" style={{ transform: `scale(${zoom}) rotate(${rotation}deg)`, transition: 'transform 0.3s ease' }} />
 
-        {/* Level indicator */}
-        <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-xl rounded-2xl px-4 py-3 border border-white/10">
-          <p className="text-[8px] text-white/40 font-black uppercase tracking-widest mb-1">Nível Activo</p>
+        <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-xl rounded-2xl px-4 py-3 border border-[#007AFF]/15 shadow-lg">
+          <p className="text-[8px] text-[#1a2a3a]/40 font-black uppercase tracking-widest mb-1">Nível Activo</p>
           <p className="text-lg font-black font-['Orbitron',sans-serif]" style={{ color: floor?.color }}>{floor?.height}</p>
-          <p className="text-[10px] text-white/60 font-bold">{floor?.label}</p>
-          <p className="text-[8px] text-white/20 mt-1">{activeFloorRenders.length} render(s)</p>
+          <p className="text-[10px] text-[#1a2a3a]/60 font-bold">{floor?.label}</p>
+          <p className="text-[8px] text-[#1a2a3a]/20 mt-1">{activeFloorRenders.length} render(s)</p>
         </div>
 
-        {/* Zoom indicator */}
-        <div className="absolute bottom-4 right-4 bg-black/50 backdrop-blur-xl rounded-full px-3 py-1.5 border border-white/10">
-          <p className="text-[9px] text-white/40 font-bold">{Math.round(zoom * 100)}%</p>
+        <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-xl rounded-full px-3 py-1.5 border border-[#007AFF]/10">
+          <p className="text-[9px] text-[#1a2a3a]/40 font-bold">{Math.round(zoom * 100)}%</p>
         </div>
       </div>
 
       {/* Floor Renders Gallery */}
       {activeFloorRenders.length > 0 && (
         <div className="px-4 mb-3">
-          <p className="text-[8px] text-white/30 font-black uppercase tracking-widest mb-2 px-2">Renders — {floor?.label}</p>
+          <p className="text-[8px] text-[#1a2a3a]/30 font-black uppercase tracking-widest mb-2 px-2">Renders — {floor?.label}</p>
           <div className="flex gap-2 overflow-x-auto pb-2">
             {activeFloorRenders.map(r => (
               <div key={r.id} className="relative shrink-0 w-24 h-24 rounded-xl overflow-hidden border-2 group" style={{ borderColor: floor?.color + '40' }}>
                 <img src={r.image_url} alt={r.label} className="w-full h-full object-cover" />
-                <button
-                  onClick={() => removeFloorRender(r.id)}
-                  className="absolute top-1 right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity active:scale-90"
-                >
+                <button onClick={() => removeFloorRender(r.id)} className="absolute top-1 right-1 w-5 h-5 bg-red-500 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity active:scale-90">
                   <X size={10} className="text-white" />
                 </button>
               </div>
             ))}
-            <button
-              onClick={openPicker}
-              className="shrink-0 w-24 h-24 rounded-xl border-2 border-dashed border-white/10 flex flex-col items-center justify-center gap-1 text-white/20 hover:text-white/40 active:scale-95 transition-all"
-            >
+            <button onClick={openPicker} className="shrink-0 w-24 h-24 rounded-xl border-2 border-dashed border-[#007AFF]/15 flex flex-col items-center justify-center gap-1 text-[#007AFF]/30 hover:text-[#007AFF]/50 active:scale-95 transition-all">
               <Plus size={16} />
               <span className="text-[7px] font-bold uppercase">Adicionar</span>
             </button>
@@ -261,23 +229,23 @@ export default function PlantaTab({ generatedImage }) {
         </div>
       )}
 
-      {/* Floor Selector + Assign buttons */}
+      {/* Floor Selector */}
       <div className="px-4 mb-2">
         <div className="flex items-center justify-between mb-2 px-2">
-          <p className="text-[8px] text-white/30 font-black uppercase tracking-widest">Pavimentos</p>
+          <p className="text-[8px] text-[#1a2a3a]/30 font-black uppercase tracking-widest">Pavimentos</p>
           <div className="flex gap-1">
             {generatedImage && (
               <button onClick={assignCurrentImage} className="px-2 py-1.5 bg-[#007AFF]/10 rounded-lg text-[#007AFF] text-[8px] font-black uppercase tracking-wider active:scale-90 border border-[#007AFF]/20 mr-1 flex items-center gap-1">
                 <Image size={10} /> Vincular Render
               </button>
             )}
-            <button onClick={openPicker} className="px-2 py-1.5 bg-white/5 rounded-lg text-white/30 text-[8px] font-black uppercase tracking-wider active:scale-90 border border-white/5 flex items-center gap-1">
+            <button onClick={openPicker} className="px-2 py-1.5 bg-[#007AFF]/5 rounded-lg text-[#1a2a3a]/30 text-[8px] font-black uppercase tracking-wider active:scale-90 border border-[#007AFF]/10 flex items-center gap-1">
               <Layers size={10} /> Galeria
             </button>
-            <button onClick={() => setActiveFloor(f => Math.min(f + 1, 3))} className="p-1.5 bg-white/5 rounded-lg text-white/30 active:scale-90 border border-white/5">
+            <button onClick={() => setActiveFloor(f => Math.min(f + 1, 3))} className="p-1.5 bg-[#007AFF]/5 rounded-lg text-[#1a2a3a]/30 active:scale-90 border border-[#007AFF]/10">
               <ChevronUp size={12} />
             </button>
-            <button onClick={() => setActiveFloor(f => Math.max(f - 1, 0))} className="p-1.5 bg-white/5 rounded-lg text-white/30 active:scale-90 border border-white/5">
+            <button onClick={() => setActiveFloor(f => Math.max(f - 1, 0))} className="p-1.5 bg-[#007AFF]/5 rounded-lg text-[#1a2a3a]/30 active:scale-90 border border-[#007AFF]/10">
               <ChevronDown size={12} />
             </button>
           </div>
@@ -292,30 +260,30 @@ export default function PlantaTab({ generatedImage }) {
                 onClick={() => setActiveFloor(f.id)}
                 className={`w-full flex items-center gap-3 p-3 rounded-2xl border transition-all active:scale-[0.98] ${
                   activeFloor === f.id
-                    ? 'bg-white/[0.06] border-white/10 shadow-lg'
+                    ? 'bg-[#007AFF]/[0.04] border-[#007AFF]/15 shadow-lg shadow-[#007AFF]/5'
                     : 'bg-transparent border-transparent'
                 }`}
               >
                 <div
                   className="w-10 h-10 rounded-xl flex items-center justify-center font-black text-sm font-['Orbitron',sans-serif]"
                   style={{
-                    backgroundColor: activeFloor === f.id ? f.color + '20' : 'transparent',
-                    color: activeFloor === f.id ? f.color : '#ffffff30',
-                    border: `1px solid ${activeFloor === f.id ? f.color + '40' : 'transparent'}`,
+                    backgroundColor: activeFloor === f.id ? f.color + '15' : 'transparent',
+                    color: activeFloor === f.id ? f.color : '#1a2a3a30',
+                    border: `1px solid ${activeFloor === f.id ? f.color + '30' : 'transparent'}`,
                   }}
                 >
                   {f.id}
                 </div>
                 <div className="flex-1 text-left">
-                  <p className={`text-xs font-black ${activeFloor === f.id ? 'text-white' : 'text-white/30'}`}>{f.label}</p>
-                  <p className="text-[9px] text-white/20">{f.modules.join(' • ')}</p>
+                  <p className={`text-xs font-black ${activeFloor === f.id ? 'text-[#1a2a3a]' : 'text-[#1a2a3a]/30'}`}>{f.label}</p>
+                  <p className="text-[9px] text-[#1a2a3a]/20">{f.modules.join(' • ')}</p>
                 </div>
                 <div className="text-right">
-                  <p className={`text-[10px] font-bold font-['Orbitron',sans-serif] ${activeFloor === f.id ? 'text-white/60' : 'text-white/15'}`}>{f.height}</p>
+                  <p className={`text-[10px] font-bold font-['Orbitron',sans-serif] ${activeFloor === f.id ? 'text-[#1a2a3a]/50' : 'text-[#1a2a3a]/15'}`}>{f.height}</p>
                   {count > 0 ? (
                     <p className="text-[8px] font-bold" style={{ color: f.color }}>{count} render(s)</p>
                   ) : (
-                    <p className="text-[8px] text-white/15">{f.modules.length} amb.</p>
+                    <p className="text-[8px] text-[#1a2a3a]/15">{f.modules.length} amb.</p>
                   )}
                 </div>
               </button>
@@ -326,35 +294,35 @@ export default function PlantaTab({ generatedImage }) {
 
       {/* Render Picker Modal */}
       {showRenderPicker && (
-        <div className="fixed inset-0 z-[300] bg-black/70 backdrop-blur-md flex items-end justify-center">
-          <div className="w-full max-w-lg bg-[#0f1729] border-t border-white/10 rounded-t-[2rem] p-6" style={{ animation: 'fadeInUp 0.3s ease-out', maxHeight: '70vh' }}>
+        <div className="fixed inset-0 z-[300] bg-black/30 backdrop-blur-md flex items-end justify-center">
+          <div className="w-full max-w-lg bg-white border-t border-[#007AFF]/10 rounded-t-[2rem] p-6 shadow-2xl" style={{ animation: 'fadeInUp 0.3s ease-out', maxHeight: '70vh' }}>
             <div className="flex items-center justify-between mb-4">
               <div>
-                <h3 className="text-sm font-black text-white uppercase tracking-widest">Vincular Render</h3>
-                <p className="text-[10px] text-white/30 mt-1">Selecione um render para o <span style={{ color: floor?.color }}>{floor?.label}</span></p>
+                <h3 className="text-sm font-black text-[#1a2a3a] uppercase tracking-widest">Vincular Render</h3>
+                <p className="text-[10px] text-[#1a2a3a]/30 mt-1">Selecione um render para o <span style={{ color: floor?.color }}>{floor?.label}</span></p>
               </div>
-              <button onClick={() => setShowRenderPicker(false)} className="p-2 text-white/40"><X size={18} /></button>
+              <button onClick={() => setShowRenderPicker(false)} className="p-2 text-[#1a2a3a]/30"><X size={18} /></button>
             </div>
 
             <div className="overflow-y-auto space-y-2" style={{ maxHeight: '50vh' }}>
               {availableRenders.length === 0 ? (
                 <div className="text-center py-12">
-                  <Image size={32} className="text-white/10 mx-auto mb-3" />
-                  <p className="text-white/30 text-sm font-bold">Nenhum render disponível</p>
-                  <p className="text-white/15 text-[10px] mt-1">Gere renders pela IARA primeiro</p>
+                  <Image size={32} className="text-[#007AFF]/15 mx-auto mb-3" />
+                  <p className="text-[#1a2a3a]/30 text-sm font-bold">Nenhum render disponível</p>
+                  <p className="text-[#1a2a3a]/15 text-[10px] mt-1">Gere renders pela IARA primeiro</p>
                 </div>
               ) : availableRenders.map(r => (
                 <button
                   key={r.id}
                   onClick={() => assignRender(r)}
                   className={`w-full flex items-center gap-3 p-3 rounded-2xl border transition-all active:scale-[0.98] ${
-                    selectedRender === r.id ? 'bg-[#007AFF]/10 border-[#007AFF]/30' : 'bg-white/5 border-white/5'
+                    selectedRender === r.id ? 'bg-[#007AFF]/10 border-[#007AFF]/30' : 'bg-[#007AFF]/[0.03] border-[#007AFF]/10'
                   }`}
                 >
-                  <img src={r.image_url} alt="" className="w-16 h-16 rounded-xl object-cover border border-white/10" />
+                  <img src={r.image_url} alt="" className="w-16 h-16 rounded-xl object-cover border border-[#007AFF]/10" />
                   <div className="flex-1 text-left">
-                    <p className="text-xs font-bold text-white truncate">{r.prompt || 'Render sem descrição'}</p>
-                    <p className="text-[9px] text-white/30 mt-1">{new Date(r.created_at).toLocaleDateString('pt-BR')}</p>
+                    <p className="text-xs font-bold text-[#1a2a3a] truncate">{r.prompt || 'Render sem descrição'}</p>
+                    <p className="text-[9px] text-[#1a2a3a]/30 mt-1">{new Date(r.created_at).toLocaleDateString('pt-BR')}</p>
                   </div>
                 </button>
               ))}
