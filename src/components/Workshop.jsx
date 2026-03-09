@@ -432,7 +432,7 @@ export default function Workshop() {
   // Boot screen
   if (isBooting) {
     return (
-      <div className="fixed inset-0 bg-[#020617] flex flex-col items-center justify-center z-[999]">
+      <div className="fixed inset-0 bg-white flex flex-col items-center justify-center z-[999]">
         <HexLogo size={72} active />
         <div className="mt-12 space-y-4 flex flex-col items-center">
           <div className="w-48 h-[2px] bg-white/5 rounded-full overflow-hidden">
