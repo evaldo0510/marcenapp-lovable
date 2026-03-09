@@ -435,8 +435,8 @@ export default function Workshop() {
       <div className="fixed inset-0 bg-white flex flex-col items-center justify-center z-[999]">
         <HexLogo size={72} active />
         <div className="mt-12 space-y-4 flex flex-col items-center">
-          <div className="w-48 h-[2px] bg-white/5 rounded-full overflow-hidden">
-            <div className="h-full bg-[#007AFF] rounded-full" style={{ animation: 'loading 1.5s ease-in-out infinite' }} />
+            <div className="w-48 h-[2px] bg-[#007AFF]/10 rounded-full overflow-hidden">
+              <div className="h-full bg-[#007AFF] rounded-full" style={{ animation: 'loading 1.5s ease-in-out infinite' }} />
           </div>
           <p className="text-[#007AFF]/50 text-[9px] font-black uppercase tracking-[0.5em]">{systemStatus}</p>
         </div>
