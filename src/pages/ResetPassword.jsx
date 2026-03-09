@@ -99,7 +99,7 @@ export default function ResetPassword() {
         </div>
 
         <div className="relative">
-          <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+          <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#007AFF]/30" />
           <input
             type={showPassword ? 'text' : 'password'} required value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirmar nova senha" minLength={6}
