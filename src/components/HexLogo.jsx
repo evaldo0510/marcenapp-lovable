@@ -31,7 +31,7 @@ function HexLogo({ size = 48, active = false, onClick, className = '' }) {
         <text
           x="50" y="58"
           textAnchor="middle"
-          fill={active ? "white" : "rgba(255,255,255,0.4)"}
+          fill={active ? "white" : "rgba(0,122,255,0.3)"}
           fontSize="28"
           fontWeight="900"
           fontFamily="'Inter', sans-serif"

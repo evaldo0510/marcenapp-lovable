@@ -103,7 +103,7 @@ export default function ResetPassword() {
           <input
             type={showPassword ? 'text' : 'password'} required value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirmar nova senha" minLength={6}
-            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-4 py-4 text-sm text-white outline-none focus:border-blue-500 transition-colors"
+            className="w-full bg-[#007AFF]/5 border border-[#007AFF]/15 rounded-2xl pl-11 pr-4 py-4 text-sm text-[#1a2a3a] outline-none focus:border-blue-500 transition-colors placeholder:text-[#1a2a3a]/30"
           />
         </div>
 
