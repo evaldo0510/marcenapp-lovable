@@ -455,7 +455,7 @@ export default function Workshop() {
               <div className="flex items-center justify-between py-4">
                 <div className="flex items-center gap-3">
                   <HexLogo size={32} active />
-                  <h1 className="text-sm font-black tracking-tight">IARA <span className="text-blue-500">STUDIO</span></h1>
+                  <h1 className="text-sm font-black tracking-tight">IARA <span className="text-[#007AFF]">STUDIO</span></h1>
                 </div>
                 <div className="flex items-center gap-2">
                   <button onClick={() => setShowGallery(true)} className="p-2 text-white/40 hover:text-blue-400 transition-colors" title="Galeria">
