@@ -18,7 +18,7 @@ const UploadPreview = lazy(() => import('./UploadPreview'));
 const ImageInspector = lazy(() => import('./ImageInspector'));
 const MaskEditor = lazy(() => import('./MaskEditor'));
 const PatioTab = lazy(() => import('./tabs/PatioTab'));
-const ClientesTab = lazy(() => import('./tabs/ClientesTab'));
+const PlantaTab = lazy(() => import('./tabs/PlantaTab'));
 const OrcarTab = lazy(() => import('./tabs/OrcarTab'));
 const DiarioTab = lazy(() => import('./tabs/DiarioTab'));
 
@@ -551,17 +551,9 @@ export default function Workshop() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -12 }}
             transition={{ duration: 0.25, ease: 'easeInOut' }}
-            className="h-full flex flex-col items-center justify-center px-8 text-center"
+            className="h-full"
           >
-            <div className="font-['Orbitron',sans-serif] text-lg font-black mb-4">Elevador de Planta</div>
-            {generatedImage ? (
-              <div className="relative">
-                <img src={generatedImage} alt="Planta" className="max-w-full max-h-[60vh] object-contain rounded-2xl border border-white/10" />
-                <p className="mt-4 text-white/40 text-xs font-bold">Nível: +2.85m</p>
-              </div>
-            ) : (
-              <p className="text-white/30 text-sm">Nenhuma planta activa</p>
-            )}
+            <Suspense fallback={<LazyFallback />}><PlantaTab generatedImage={generatedImage} /></Suspense>
           </motion.div>
         )}
 
