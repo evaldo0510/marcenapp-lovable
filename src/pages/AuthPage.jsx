@@ -63,7 +63,7 @@ export default function AuthPage() {
           <input
             type="email" required value={email} onChange={e => setEmail(e.target.value)}
             placeholder="Email"
-            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-4 py-4 text-sm text-white outline-none focus:border-[#007AFF] transition-colors"
+            className="w-full bg-[#007AFF]/5 border border-[#007AFF]/15 rounded-2xl pl-11 pr-4 py-4 text-sm text-[#1a2a3a] outline-none focus:border-[#007AFF] transition-colors placeholder:text-[#1a2a3a]/30"
           />
         </div>
 
