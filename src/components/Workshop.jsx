@@ -533,7 +533,7 @@ export default function Workshop() {
       {/* Loading overlay */}
       {loading && (
         <div className="fixed inset-0 z-[500] bg-[#020617]/98 backdrop-blur-2xl flex flex-col items-center justify-center p-12 text-center">
-          <Logo />
+          <HexLogo size={72} active />
           <div className="mt-12 space-y-6">
             <Loader2 className="animate-spin text-blue-500 mx-auto" size={72} />
             <p className="text-white font-black text-[12px] uppercase tracking-[0.8em] animate-pulse italic leading-none">{loadingText}</p>
