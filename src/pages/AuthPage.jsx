@@ -59,7 +59,7 @@ export default function AuthPage() {
       {/* Form */}
       <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
         <div className="relative">
-          <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+          <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#007AFF]/30" />
           <input
             type="email" required value={email} onChange={e => setEmail(e.target.value)}
             placeholder="Email"
