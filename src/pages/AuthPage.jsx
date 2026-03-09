@@ -40,7 +40,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="fixed inset-0 bg-[#020617] flex flex-col items-center justify-center px-8">
+    <div className="fixed inset-0 bg-white flex flex-col items-center justify-center px-8">
       {/* Logo */}
       <div className="mb-10 text-center">
         <svg viewBox="0 0 100 100" className="w-16 h-16 mx-auto mb-4">
