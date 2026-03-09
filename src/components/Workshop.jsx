@@ -458,7 +458,7 @@ export default function Workshop() {
                   <h1 className="text-sm font-black tracking-tight">IARA <span className="text-[#007AFF]">STUDIO</span></h1>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => setShowGallery(true)} className="p-2 text-white/40 hover:text-blue-400 transition-colors" title="Galeria">
+                  <button onClick={() => setShowGallery(true)} className="p-2 text-white/40 hover:text-[#007AFF] transition-colors" title="Galeria">
                     <GalleryHorizontalEnd size={16} />
                   </button>
                   <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
