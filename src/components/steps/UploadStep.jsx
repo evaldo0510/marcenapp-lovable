@@ -111,7 +111,7 @@ function UploadStep({
               onChange={e => setChatInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && sendChat()}
               placeholder={voice.isListening ? "🎤 Ouvindo..." : "Pergunte à IARA..."}
-              className="flex-1 bg-transparent text-white text-sm outline-none placeholder:text-white/20"
+              className="flex-1 bg-transparent text-[#1a2a3a] text-sm outline-none placeholder:text-[#1a2a3a]/30"
             />
           </div>
 
