@@ -74,7 +74,7 @@ export default function ClientesTab() {
       <div className="flex-1 overflow-y-auto px-6 space-y-3">
         {loading ? (
           <div className="flex items-center justify-center h-40">
-            <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+            <div className="w-6 h-6 border-2 border-[#007AFF] border-t-transparent rounded-full animate-spin" />
           </div>
         ) : filtered.length === 0 ? (
           <div className="text-center py-16">
