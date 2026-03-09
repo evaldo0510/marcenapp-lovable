@@ -36,10 +36,10 @@ function UploadStep({
               Abrir Ambiente
             </button>
 
-            <div className="mt-8 flex items-center gap-2 text-white/15">
-              <div className="w-8 h-px bg-white/10" />
+            <div className="mt-8 flex items-center gap-2 text-[#007AFF]/20">
+              <div className="w-8 h-px bg-[#007AFF]/10" />
               <span className="text-[8px] font-bold uppercase tracking-[0.3em]">Fidelidade Industrial</span>
-              <div className="w-8 h-px bg-white/10" />
+              <div className="w-8 h-px bg-[#007AFF]/10" />
             </div>
           </div>
         ) : (
