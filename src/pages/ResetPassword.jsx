@@ -87,7 +87,7 @@ export default function ResetPassword() {
 
       <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
         <div className="relative">
-          <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+          <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#007AFF]/30" />
           <input
             type={showPassword ? 'text' : 'password'} required value={password}
             onChange={e => setPassword(e.target.value)} placeholder="Nova senha" minLength={6}
