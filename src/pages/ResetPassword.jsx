@@ -54,8 +54,8 @@ export default function ResetPassword() {
     return (
       <div className="fixed inset-0 bg-white flex flex-col items-center justify-center px-8">
         <CheckCircle size={48} className="text-emerald-500 mb-6" />
-        <h1 className="text-xl font-black text-white mb-2">Senha Redefinida!</h1>
-        <p className="text-white/40 text-xs mb-8">Sua senha foi atualizada com sucesso.</p>
+        <h1 className="text-xl font-black text-[#1a2a3a] mb-2">Senha Redefinida!</h1>
+        <p className="text-[#1a2a3a]/40 text-xs mb-8">Sua senha foi atualizada com sucesso.</p>
         <a href="/" className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-3">
           Entrar no Studio <ArrowRight size={16} />
         </a>
