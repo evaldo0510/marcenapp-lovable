@@ -8,8 +8,8 @@ function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChange }) {
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-2.5 px-3`}>
       {!isUser && (
-        <div className="w-7 h-7 rounded-full bg-[#007AFF]/20 border border-[#007AFF]/30 flex items-center justify-center mr-2 mt-1 shrink-0">
-          <span className="text-[8px] font-black text-[#007AFF]">M</span>
+        <div className="w-8 h-8 rounded-full bg-gradient-to-br from-[#007AFF] to-[#0055CC] flex items-center justify-center mr-2 mt-1 shrink-0 shadow-md">
+          <span className="text-[10px] font-black text-white">M</span>
         </div>
       )}
 
@@ -21,7 +21,7 @@ function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChange }) {
         {msg.type === 'image' && msg.src && (
           <div 
             onClick={() => onInspect?.(msg.src)} 
-            className="mb-2 -mx-1 -mt-1 rounded-xl overflow-hidden cursor-pointer group"
+            className="mb-2 -mx-1 -mt-1 rounded-xl overflow-hidden cursor-pointer group relative border border-black/5"
           >
             <img 
               src={msg.src} 
@@ -29,6 +29,9 @@ function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChange }) {
               className="w-full max-h-64 object-cover group-hover:scale-105 transition-transform duration-300"
               loading="lazy"
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end justify-center pb-3">
+              <span className="text-white text-[8px] font-black uppercase tracking-widest">Inspeccionar</span>
+            </div>
           </div>
         )}
         <p className="text-[13px] leading-relaxed whitespace-pre-wrap">{textContent}</p>
@@ -57,7 +60,7 @@ function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChange }) {
         )}
 
         <div className={`flex items-center gap-1 mt-1 ${isUser ? 'justify-end' : 'justify-start'}`}>
-          <span className={`text-[9px] ${isUser ? 'text-[#111B21]/40' : 'opacity-40'}`}>{msg.time || 'Agora'}</span>
+          <span className={`text-[9px] ${isUser ? 'text-[#111B21]/40' : 'opacity-40'}`}>{msg.time || 'Sinc.'}</span>
           {isUser && <CheckCheck size={12} className="text-[#007AFF]/60" />}
         </div>
       </div>
