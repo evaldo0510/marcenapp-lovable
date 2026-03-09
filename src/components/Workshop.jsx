@@ -461,20 +461,19 @@ export default function Workshop() {
             className="h-full flex flex-col"
           >
             {step !== 'result' && (
-              <header className="fixed top-0 left-0 right-0 z-50 px-6 pt-[env(safe-area-inset-top)] bg-gradient-to-b from-[#020617] via-[#020617]/80 to-transparent">
-                <div className="flex items-center justify-between py-4">
+              <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-[env(safe-area-inset-top)] bg-[#020617] border-b border-white/[0.04]">
+                <div className="flex items-center justify-between py-3">
                   <div className="flex items-center gap-3">
-                    <HexLogo size={32} active />
-                    <h1 className="text-sm font-black tracking-tight">IARA <span className="text-[#007AFF]">STUDIO</span></h1>
+                    <HexLogo size={36} active />
+                    <div>
+                      <h1 className="text-sm font-black tracking-tight font-['Orbitron',sans-serif]">Iara <span className="text-[#007AFF]">Render</span></h1>
+                      <p className="text-[8px] text-emerald-400 font-bold uppercase tracking-widest">online</p>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1">
                     <button onClick={() => setShowGallery(true)} className="p-2 text-white/40 hover:text-[#007AFF] transition-colors" title="Galeria">
                       <GalleryHorizontalEnd size={16} />
                     </button>
-                    <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span className="text-[8px] font-black text-emerald-400 uppercase tracking-widest">ONLINE</span>
-                    </div>
                     {step === 'sketch' && (
                       <button onClick={resetAll} className="p-2 text-white/30 active:text-white transition-colors">
                         <RotateCcw size={16} />
@@ -485,6 +484,9 @@ export default function Workshop() {
                     </button>
                     <button onClick={() => supabase.auth.signOut()} className="p-2 text-white/20 hover:text-red-400 transition-colors" title="Sair">
                       <LogOut size={14} />
+                    </button>
+                    <button className="p-2 text-white/20">
+                      <MoreVertical size={14} />
                     </button>
                   </div>
                 </div>
