@@ -1,53 +1,64 @@
 import React, { memo } from 'react';
-import { Hammer, Users, Sparkles, Wallet, ClipboardList } from 'lucide-react';
+import { Hammer, Users, Wallet, ClipboardList } from 'lucide-react';
+import HexLogo from './HexLogo';
 
-const tabs = [
+const sideTabs = [
   { id: 'patio', label: 'Pátio', icon: Hammer },
   { id: 'clientes', label: 'Clientes', icon: Users },
-  { id: 'iara', label: 'Iara', icon: Sparkles, isCenter: true },
+  null, // center placeholder
   { id: 'orcar', label: 'Orçar', icon: Wallet },
   { id: 'diario', label: 'Diário', icon: ClipboardList },
 ];
 
 function BottomNav({ activeTab, onTabChange }) {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-[200] bg-[#020617]/95 backdrop-blur-xl border-t border-white/5 pb-[env(safe-area-inset-bottom)]">
-      <div className="flex items-end justify-around px-2 pt-1">
-        {tabs.map(tab => {
-          const Icon = tab.icon;
-          const isActive = activeTab === tab.id;
+    <nav className="fixed bottom-0 left-0 right-0 z-[200] pb-[env(safe-area-inset-bottom)]">
+      {/* Frosted glass background */}
+      <div className="absolute inset-0 bg-[#020617]/90 backdrop-blur-2xl border-t border-white/[0.06]" />
 
-          if (tab.isCenter) {
+      <div className="relative flex items-end justify-around px-4 pt-1 pb-1">
+        {sideTabs.map((tab, i) => {
+          if (!tab) {
+            // Center hex button
             return (
               <button
-                key={tab.id}
-                onClick={() => onTabChange(tab.id)}
-                className="relative -mt-6 flex flex-col items-center gap-1 active:scale-95 transition-all"
+                key="iara-center"
+                onClick={() => onTabChange('iara')}
+                className="relative -mt-7 flex flex-col items-center gap-0.5 active:scale-90 transition-transform"
               >
-                <div className={`w-14 h-14 rounded-full flex items-center justify-center shadow-xl transition-all ${
-                  isActive 
-                    ? 'bg-blue-600 shadow-blue-600/40' 
-                    : 'bg-white/10 border border-white/10'
+                <HexLogo size={56} active={activeTab === 'iara'} />
+                <span className={`text-[8px] font-black uppercase tracking-[0.2em] transition-colors ${
+                  activeTab === 'iara' ? 'text-blue-400' : 'text-white/25'
                 }`}>
-                  <Icon size={22} className={isActive ? 'text-white' : 'text-white/50'} />
-                </div>
-                <span className={`text-[9px] font-black uppercase tracking-widest ${
-                  isActive ? 'text-blue-400' : 'text-white/30'
-                }`}>{tab.label}</span>
+                  Iara
+                </span>
               </button>
             );
           }
+
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
 
           return (
             <button
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
-              className="flex flex-col items-center gap-1 py-2 px-3 active:scale-95 transition-all"
+              className={`flex flex-col items-center gap-1 py-2.5 px-3 transition-all active:scale-90 ${
+                isActive ? 'scale-105' : ''
+              }`}
             >
-              <Icon size={18} className={isActive ? 'text-blue-400' : 'text-white/30'} />
-              <span className={`text-[9px] font-bold ${
-                isActive ? 'text-blue-400' : 'text-white/30'
-              }`}>{tab.label}</span>
+              <Icon
+                size={20}
+                className={`transition-colors ${
+                  isActive ? 'text-blue-400' : 'text-white/25'
+                }`}
+                strokeWidth={isActive ? 2.5 : 1.5}
+              />
+              <span className={`text-[9px] font-bold tracking-wider transition-colors ${
+                isActive ? 'text-blue-400' : 'text-white/25'
+              }`}>
+                {tab.label}
+              </span>
             </button>
           );
         })}
