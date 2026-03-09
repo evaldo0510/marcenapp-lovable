@@ -44,9 +44,9 @@ export default function AuthPage() {
       {/* Logo */}
       <div className="mb-10 text-center">
         <svg viewBox="0 0 100 100" className="w-16 h-16 mx-auto mb-4">
-          <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" strokeWidth="2" opacity="0.3" />
-          <circle cx="50" cy="50" r="30" fill="none" stroke="#3b82f6" strokeWidth="1.5" opacity="0.5" />
-          <circle cx="50" cy="50" r="8" fill="#3b82f6" />
+          <circle cx="50" cy="50" r="45" fill="none" stroke="#007AFF" strokeWidth="2" opacity="0.3" />
+          <circle cx="50" cy="50" r="30" fill="none" stroke="#007AFF" strokeWidth="1.5" opacity="0.5" />
+          <circle cx="50" cy="50" r="8" fill="#007AFF" />
         </svg>
         <h1 className="text-xl font-black text-white tracking-tight">
           IARA <span className="text-blue-500">STUDIO</span>
