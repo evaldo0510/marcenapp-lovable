@@ -74,7 +74,7 @@ export default function AuthPage() {
             placeholder="Senha" minLength={6}
             className="w-full bg-[#007AFF]/5 border border-[#007AFF]/15 rounded-2xl pl-11 pr-11 py-4 text-sm text-[#1a2a3a] outline-none focus:border-[#007AFF] transition-colors placeholder:text-[#1a2a3a]/30"
           />
-          <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30">
+          <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#007AFF]/30">
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
