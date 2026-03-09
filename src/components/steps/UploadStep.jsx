@@ -83,7 +83,7 @@ function UploadStep({
             </button>
             <button
               onClick={() => generateRender('multi')}
-              className="shrink-0 px-4 py-2 bg-white/[0.06] text-white rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 active:scale-95 border border-white/[0.08]"
+              className="shrink-0 px-4 py-2 bg-[#1a2a3a]/5 text-[#1a2a3a]/60 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 active:scale-95 border border-[#1a2a3a]/10"
             >
               <Eye size={12} /> Multi-Vista
             </button>
