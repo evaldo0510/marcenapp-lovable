@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback, lazy, Suspense } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Loader2, RotateCcw, Settings, LogOut, GalleryHorizontalEnd, ShieldAlert, X, MoreVertical
 } from 'lucide-react';
@@ -448,84 +449,137 @@ export default function Workshop() {
     <div className="fixed inset-0 bg-[#020617] text-white overflow-hidden font-['Inter',sans-serif]">
       <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleUpload} />
 
-      {activeTab === 'iara' && (
-        <div className="h-full flex flex-col">
-          {step !== 'result' && (
-            <header className="fixed top-0 left-0 right-0 z-50 px-6 pt-[env(safe-area-inset-top)] bg-gradient-to-b from-[#020617] via-[#020617]/80 to-transparent">
-              <div className="flex items-center justify-between py-4">
-                <div className="flex items-center gap-3">
-                  <HexLogo size={32} active />
-                  <h1 className="text-sm font-black tracking-tight">IARA <span className="text-[#007AFF]">STUDIO</span></h1>
-                </div>
-                <div className="flex items-center gap-2">
-                  <button onClick={() => setShowGallery(true)} className="p-2 text-white/40 hover:text-[#007AFF] transition-colors" title="Galeria">
-                    <GalleryHorizontalEnd size={16} />
-                  </button>
-                  <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                    <span className="text-[8px] font-black text-emerald-400 uppercase tracking-widest">ONLINE</span>
+      <AnimatePresence mode="wait">
+        {activeTab === 'iara' && (
+          <motion.div
+            key="iara"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="h-full flex flex-col"
+          >
+            {step !== 'result' && (
+              <header className="fixed top-0 left-0 right-0 z-50 px-6 pt-[env(safe-area-inset-top)] bg-gradient-to-b from-[#020617] via-[#020617]/80 to-transparent">
+                <div className="flex items-center justify-between py-4">
+                  <div className="flex items-center gap-3">
+                    <HexLogo size={32} active />
+                    <h1 className="text-sm font-black tracking-tight">IARA <span className="text-[#007AFF]">STUDIO</span></h1>
                   </div>
-                  {step === 'sketch' && (
-                    <button onClick={resetAll} className="p-2 text-white/30 active:text-white transition-colors">
-                      <RotateCcw size={16} />
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => setShowGallery(true)} className="p-2 text-white/40 hover:text-[#007AFF] transition-colors" title="Galeria">
+                      <GalleryHorizontalEnd size={16} />
                     </button>
-                  )}
-                  <button onClick={() => setShowSettings(true)} className="p-2 text-white/20 hover:text-white/60 transition-colors" title="Configurações">
-                    <Settings size={14} />
-                  </button>
-                  <button onClick={() => supabase.auth.signOut()} className="p-2 text-white/20 hover:text-red-400 transition-colors" title="Sair">
-                    <LogOut size={14} />
-                  </button>
+                    <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                      <span className="text-[8px] font-black text-emerald-400 uppercase tracking-widest">ONLINE</span>
+                    </div>
+                    {step === 'sketch' && (
+                      <button onClick={resetAll} className="p-2 text-white/30 active:text-white transition-colors">
+                        <RotateCcw size={16} />
+                      </button>
+                    )}
+                    <button onClick={() => setShowSettings(true)} className="p-2 text-white/20 hover:text-white/60 transition-colors" title="Configurações">
+                      <Settings size={14} />
+                    </button>
+                    <button onClick={() => supabase.auth.signOut()} className="p-2 text-white/20 hover:text-red-400 transition-colors" title="Sair">
+                      <LogOut size={14} />
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </header>
-          )}
-
-          <main className="flex-1 overflow-hidden">
-            {step === 'upload' && (
-              <UploadStep
-                messages={messages} chatLoading={chatLoading} scrollRef={scrollRef}
-                chatInput={chatInput} setChatInput={setChatInput} sendChat={sendChat}
-                triggerUpload={triggerUpload} voice={voice} generatedImage={generatedImage}
-                openInspector={openInspector} generateRender={generateRender}
-                setMaskEditorData={setMaskEditorData}
-              />
+              </header>
             )}
 
-            {step === 'sketch' && (
-              <SketchStep
-                photo={photo} canvasRef={canvasRef} zoomScale={zoomScale} setZoomScale={setZoomScale}
-                showFullEnvironment={showFullEnvironment} setShowFullEnvironment={setShowFullEnvironment}
-                isEraser={isEraser} setIsEraser={setIsEraser} undo={undo}
-                startDrawing={startDrawing} draw={draw} stopDrawing={stopDrawing}
-                prompt={prompt} setPrompt={setPrompt} loading={loading} generateRender={generateRender}
-              />
-            )}
+            <main className="flex-1 overflow-hidden">
+              {step === 'upload' && (
+                <UploadStep
+                  messages={messages} chatLoading={chatLoading} scrollRef={scrollRef}
+                  chatInput={chatInput} setChatInput={setChatInput} sendChat={sendChat}
+                  triggerUpload={triggerUpload} voice={voice} generatedImage={generatedImage}
+                  openInspector={openInspector} generateRender={generateRender}
+                  setMaskEditorData={setMaskEditorData}
+                />
+              )}
 
-            {step === 'result' && (
-              <ResultStep
-                generatedImage={generatedImage} pins={pins} activePinId={activePinId}
-                isInspecting={isInspecting} isRefining={isRefining} isDragging={isDragging}
-                panPosition={panPosition} showResultUI={showResultUI}
-                handleMouseDown={handleMouseDown} handleMouseMove={handleMouseMove}
-                handleMouseUp={handleMouseUp} handleImageClick={handleImageClick}
-                cancelInspection={cancelInspection} generateRender={generateRender}
-                updatePinPrompt={updatePinPrompt} removePin={removePin} savePin={savePin}
-                downloadImage={downloadImage} openInspector={openInspector}
-                resetAll={resetAll} setStep={setStep}
-              />
-            )}
-          </main>
-        </div>
-      )}
+              {step === 'sketch' && (
+                <SketchStep
+                  photo={photo} canvasRef={canvasRef} zoomScale={zoomScale} setZoomScale={setZoomScale}
+                  showFullEnvironment={showFullEnvironment} setShowFullEnvironment={setShowFullEnvironment}
+                  isEraser={isEraser} setIsEraser={setIsEraser} undo={undo}
+                  startDrawing={startDrawing} draw={draw} stopDrawing={stopDrawing}
+                  prompt={prompt} setPrompt={setPrompt} loading={loading} generateRender={generateRender}
+                />
+              )}
 
-      {/* Lazy-loaded tabs */}
-      <Suspense fallback={<LazyFallback />}>
-        {activeTab === 'patio' && <PatioTab />}
-        {activeTab === 'clientes' && <ClientesTab />}
-        {activeTab === 'orcar' && <OrcarTab />}
-        {activeTab === 'diario' && <DiarioTab />}
-      </Suspense>
+              {step === 'result' && (
+                <ResultStep
+                  generatedImage={generatedImage} pins={pins} activePinId={activePinId}
+                  isInspecting={isInspecting} isRefining={isRefining} isDragging={isDragging}
+                  panPosition={panPosition} showResultUI={showResultUI}
+                  handleMouseDown={handleMouseDown} handleMouseMove={handleMouseMove}
+                  handleMouseUp={handleMouseUp} handleImageClick={handleImageClick}
+                  cancelInspection={cancelInspection} generateRender={generateRender}
+                  updatePinPrompt={updatePinPrompt} removePin={removePin} savePin={savePin}
+                  downloadImage={downloadImage} openInspector={openInspector}
+                  resetAll={resetAll} setStep={setStep}
+                />
+              )}
+            </main>
+          </motion.div>
+        )}
+
+        {activeTab === 'patio' && (
+          <motion.div
+            key="patio"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="h-full"
+          >
+            <Suspense fallback={<LazyFallback />}><PatioTab /></Suspense>
+          </motion.div>
+        )}
+
+        {activeTab === 'clientes' && (
+          <motion.div
+            key="clientes"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="h-full"
+          >
+            <Suspense fallback={<LazyFallback />}><ClientesTab /></Suspense>
+          </motion.div>
+        )}
+
+        {activeTab === 'orcar' && (
+          <motion.div
+            key="orcar"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="h-full"
+          >
+            <Suspense fallback={<LazyFallback />}><OrcarTab /></Suspense>
+          </motion.div>
+        )}
+
+        {activeTab === 'diario' && (
+          <motion.div
+            key="diario"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.25, ease: 'easeInOut' }}
+            className="h-full"
+          >
+            <Suspense fallback={<LazyFallback />}><DiarioTab /></Suspense>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <BottomNav activeTab={activeTab} onTabChange={setActiveTab} />
       <FeedbackNotification />
