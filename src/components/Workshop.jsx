@@ -475,7 +475,7 @@ export default function Workshop() {
                       <GalleryHorizontalEnd size={16} />
                     </button>
                     {step === 'sketch' && (
-                      <button onClick={resetAll} className="p-2 text-white/30 active:text-white transition-colors">
+                      <button onClick={resetAll} className="p-2 text-[#1a2a3a]/30 active:text-[#007AFF] transition-colors">
                         <RotateCcw size={16} />
                       </button>
                     )}
