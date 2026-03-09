@@ -339,6 +339,56 @@ export default function Workshop() {
     setStep('sketch');
   }, [uploadPreviewData]);
 
+  // Direct render from photo (no sketch)
+  const handleDirectRender = useCallback(async (caption) => {
+    const imageData = uploadPreviewData;
+    setUploadPreviewData(null);
+    setPhoto(imageData);
+    setPrompt(caption);
+    setLoading(true);
+    setLoadingText("IARA ANALISANDO AMBIENTE...");
+    setError(null);
+    try {
+      // Step 1: Analyze the environment
+      const { data: analysis, error: analysisErr } = await supabase.functions.invoke('iara-pipeline', {
+        body: { action: 'analyze', imageBase64: imageData, prompt: caption || 'Analise este ambiente e sugira móveis planejados ideais para o espaço.' }
+      });
+      if (analysisErr) throw analysisErr;
+
+      const desc = analysis?.description || 'Móvel planejado premium';
+      const analysisMsg = {
+        id: Date.now(), from: 'iara', type: 'text', time: timeStr(),
+        text: `📐 **Análise do ambiente:**\n${desc}\n\n${analysis?.project ? `Tipo: ${analysis.project.tipo}\nMateriais: ${analysis.project.materiais?.estrutura || 'MDF 18mm'}\nValor estimado: R$ ${analysis.project.valor_mercado?.toLocaleString('pt-BR') || '—'}` : ''}\n\nGerando render...`
+      };
+      setMessages(prev => [...prev, analysisMsg]);
+
+      // Step 2: Generate render
+      setLoadingText("MATERIALIZANDO PROJETO...");
+      const renderPrompt = `ENVIRONMENT-BASED FURNITURE PROJECT. Analyze the room geometry, walls, floor, lighting. Design and insert ideal custom furniture (${caption || desc}). Materials: PBR Wood grain CARVALHO MALVA and MATTE WHITE. 8K Photorealistic ArchViz.`;
+      const { data: renderData, error: renderErr } = await supabase.functions.invoke('iara-pipeline', {
+        body: { action: 'render', imageBase64: imageData, description: renderPrompt }
+      });
+      if (renderErr) throw renderErr;
+
+      if (renderData?.render) {
+        const imageUrl = renderData.render.startsWith('data:') ? renderData.render : `data:image/png;base64,${renderData.render}`;
+        setGeneratedImage(imageUrl);
+        setStep('result');
+        setShowResultUI(true);
+        const renderMsg = { id: Date.now() + 1, from: 'iara', text: 'Projeto gerado a partir da foto do ambiente.', type: 'image', src: imageUrl, time: timeStr() };
+        setMessages(prev => [...prev, renderMsg]);
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user) await supabase.from('renders').insert({ user_id: user.id, image_url: imageUrl, prompt: renderPrompt });
+      } else {
+        throw new Error(renderData?.error || "Falha na materialização.");
+      }
+    } catch (e) {
+      setError(String(e.message || "Erro ao gerar projeto direto."));
+    } finally {
+      setLoading(false);
+    }
+  }, [uploadPreviewData, timeStr]);
+
   const handleInspectorEdit = useCallback((imgSrc) => {
     setInspectorData(null);
     setMaskEditorData(imgSrc);
