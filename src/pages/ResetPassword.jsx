@@ -52,7 +52,7 @@ export default function ResetPassword() {
 
   if (success) {
     return (
-      <div className="fixed inset-0 bg-[#020617] flex flex-col items-center justify-center px-8">
+      <div className="fixed inset-0 bg-white flex flex-col items-center justify-center px-8">
         <CheckCircle size={48} className="text-emerald-500 mb-6" />
         <h1 className="text-xl font-black text-white mb-2">Senha Redefinida!</h1>
         <p className="text-white/40 text-xs mb-8">Sua senha foi atualizada com sucesso.</p>
