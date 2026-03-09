@@ -18,7 +18,7 @@ const UploadPreview = lazy(() => import('./UploadPreview'));
 const ImageInspector = lazy(() => import('./ImageInspector'));
 const MaskEditor = lazy(() => import('./MaskEditor'));
 const PatioTab = lazy(() => import('./tabs/PatioTab'));
-const ClientesTab = lazy(() => import('./tabs/ClientesTab'));
+const PlantaTab = lazy(() => import('./tabs/PlantaTab'));
 const OrcarTab = lazy(() => import('./tabs/OrcarTab'));
 const DiarioTab = lazy(() => import('./tabs/DiarioTab'));
 
