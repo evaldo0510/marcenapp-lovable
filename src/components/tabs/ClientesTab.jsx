@@ -94,7 +94,7 @@ export default function ClientesTab() {
                 </div>
               </div>
               <div className="flex gap-1">
-                <button onClick={() => editClient(c)} className="p-2 text-white/20 hover:text-blue-400 transition-colors"><Edit3 size={14} /></button>
+                <button onClick={() => editClient(c)} className="p-2 text-white/20 hover:text-[#007AFF] transition-colors"><Edit3 size={14} /></button>
                 <button onClick={() => deleteClient(c.id)} className="p-2 text-white/20 hover:text-red-400 transition-colors"><Trash2 size={14} /></button>
               </div>
             </div>
