@@ -104,7 +104,7 @@ function UploadStep({
           <div className={`flex-1 rounded-full px-4 py-3 flex items-center transition-all border ${
             voice.isListening
               ? 'bg-red-500/10 border-red-500/30'
-              : 'bg-white/[0.04] border-white/[0.08] focus-within:border-[#007AFF]/40'
+              : 'bg-[#007AFF]/5 border-[#007AFF]/15 focus-within:border-[#007AFF]/40'
           }`}>
             <input
               value={chatInput}
