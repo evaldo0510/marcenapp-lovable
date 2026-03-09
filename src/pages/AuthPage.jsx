@@ -49,7 +49,7 @@ export default function AuthPage() {
           <circle cx="50" cy="50" r="8" fill="#007AFF" />
         </svg>
         <h1 className="text-xl font-black text-white tracking-tight">
-          IARA <span className="text-blue-500">STUDIO</span>
+          IARA <span className="text-[#007AFF]">STUDIO</span>
         </h1>
         <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.3em] mt-1">
           Sistema Industrial Inteligente
