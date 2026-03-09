@@ -137,6 +137,44 @@ export type Database = {
         }
         Relationships: []
       }
+      floor_renders: {
+        Row: {
+          created_at: string
+          floor_id: number
+          id: string
+          image_url: string
+          label: string | null
+          render_id: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          floor_id: number
+          id?: string
+          image_url: string
+          label?: string | null
+          render_id?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          floor_id?: number
+          id?: string
+          image_url?: string
+          label?: string | null
+          render_id?: string | null
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "floor_renders_render_id_fkey"
+            columns: ["render_id"]
+            isOneToOne: false
+            referencedRelation: "renders"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       projects: {
         Row: {
           client_name: string
