@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback, lazy, Suspense } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Loader2, RotateCcw, Settings, LogOut, GalleryHorizontalEnd, ShieldAlert, X, MoreVertical
 } from 'lucide-react';
