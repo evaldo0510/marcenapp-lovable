@@ -479,13 +479,13 @@ export default function Workshop() {
                         <RotateCcw size={16} />
                       </button>
                     )}
-                    <button onClick={() => setShowSettings(true)} className="p-2 text-white/20 hover:text-white/60 transition-colors" title="Configurações">
+                    <button onClick={() => setShowSettings(true)} className="p-2 text-[#1a2a3a]/20 hover:text-[#007AFF] transition-colors" title="Configurações">
                       <Settings size={14} />
                     </button>
-                    <button onClick={() => supabase.auth.signOut()} className="p-2 text-white/20 hover:text-red-400 transition-colors" title="Sair">
+                    <button onClick={() => supabase.auth.signOut()} className="p-2 text-[#1a2a3a]/20 hover:text-red-400 transition-colors" title="Sair">
                       <LogOut size={14} />
                     </button>
-                    <button className="p-2 text-white/20">
+                    <button className="p-2 text-[#1a2a3a]/20">
                       <MoreVertical size={14} />
                     </button>
                   </div>
