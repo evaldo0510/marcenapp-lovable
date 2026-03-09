@@ -20,10 +20,10 @@ function UploadStep({
                 Alvenaria<br />
                 <span className="text-[#007AFF]">Digital</span>
               </h2>
-              <p className="text-white/30 text-[10px] mt-3 font-black uppercase tracking-[0.3em]">
+              <p className="text-[#1a2a3a]/30 text-[10px] mt-3 font-black uppercase tracking-[0.3em]">
                 Fidelidade Geométrica 1:1
               </p>
-              <p className="text-white/20 text-[11px] mt-4 max-w-[260px] leading-relaxed">
+              <p className="text-[#1a2a3a]/20 text-[11px] mt-4 max-w-[260px] leading-relaxed">
                 Mestre, suba o seu rascunho para materializar a visão.
               </p>
             </div>
