@@ -13,7 +13,7 @@ const sideTabs = [
 function BottomNav({ activeTab, onTabChange }) {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-[200] pb-[env(safe-area-inset-bottom)]">
-      <div className="absolute inset-0 bg-[#020617]/90 backdrop-blur-2xl border-t border-white/[0.06]" />
+      <div className="absolute inset-0 bg-white/95 backdrop-blur-2xl border-t border-[#007AFF]/10 shadow-[0_-4px_20px_rgba(0,122,255,0.06)]" />
 
       <div className="relative flex items-end justify-around px-4 pt-1 pb-1">
         {sideTabs.map((tab, i) => {
