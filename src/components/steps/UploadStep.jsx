@@ -63,7 +63,7 @@ function UploadStep({
             {chatLoading && (
               <div className="flex justify-start px-3 mb-2">
                 <div className="bg-white/[0.06] rounded-2xl rounded-bl-md px-4 py-3 border border-white/[0.04]">
-                  <p className="text-[10px] text-white/40 italic font-bold">Iara a transmutar...</p>
+                  <p className="text-[10px] text-[#007AFF]/40 italic font-bold">Iara a transmutar...</p>
                 </div>
               </div>
             )}
