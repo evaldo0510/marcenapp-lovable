@@ -44,12 +44,12 @@ export default function AuthPage() {
       {/* Logo */}
       <div className="mb-10 text-center">
         <svg viewBox="0 0 100 100" className="w-16 h-16 mx-auto mb-4">
-          <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" strokeWidth="2" opacity="0.3" />
-          <circle cx="50" cy="50" r="30" fill="none" stroke="#3b82f6" strokeWidth="1.5" opacity="0.5" />
-          <circle cx="50" cy="50" r="8" fill="#3b82f6" />
+          <circle cx="50" cy="50" r="45" fill="none" stroke="#007AFF" strokeWidth="2" opacity="0.3" />
+          <circle cx="50" cy="50" r="30" fill="none" stroke="#007AFF" strokeWidth="1.5" opacity="0.5" />
+          <circle cx="50" cy="50" r="8" fill="#007AFF" />
         </svg>
         <h1 className="text-xl font-black text-white tracking-tight">
-          IARA <span className="text-blue-500">STUDIO</span>
+          IARA <span className="text-[#007AFF]">STUDIO</span>
         </h1>
         <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.3em] mt-1">
           Sistema Industrial Inteligente
@@ -63,7 +63,7 @@ export default function AuthPage() {
           <input
             type="email" required value={email} onChange={e => setEmail(e.target.value)}
             placeholder="Email"
-            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-4 py-4 text-sm text-white outline-none focus:border-blue-500 transition-colors"
+            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-4 py-4 text-sm text-white outline-none focus:border-[#007AFF] transition-colors"
           />
         </div>
 
@@ -72,7 +72,7 @@ export default function AuthPage() {
           <input
             type={showPassword ? 'text' : 'password'} required value={password} onChange={e => setPassword(e.target.value)}
             placeholder="Senha" minLength={6}
-            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-11 py-4 text-sm text-white outline-none focus:border-blue-500 transition-colors"
+            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-11 py-4 text-sm text-white outline-none focus:border-[#007AFF] transition-colors"
           />
           <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30">
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
@@ -93,7 +93,7 @@ export default function AuthPage() {
 
         <button
           type="submit" disabled={loading}
-          className="w-full bg-blue-600 text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 active:scale-95 transition-all shadow-xl border-b-4 border-blue-800 disabled:opacity-50"
+          className="w-full bg-[#007AFF] text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 active:scale-95 transition-all shadow-xl border-b-4 border-[#0055CC] disabled:opacity-50"
         >
           {loading ? <Loader2 size={18} className="animate-spin" /> : (
             <>{isLogin ? 'Entrar' : 'Criar Conta'} <ArrowRight size={16} /></>
@@ -102,7 +102,7 @@ export default function AuthPage() {
 
         <button
           type="button" onClick={() => { setIsLogin(!isLogin); setError(null); setSuccess(null); }}
-          className="w-full text-white/40 text-xs font-bold py-2 hover:text-blue-400 transition-colors"
+          className="w-full text-white/40 text-xs font-bold py-2 hover:text-[#007AFF] transition-colors"
         >
           {isLogin ? 'Não tem conta? Criar agora' : 'Já tem conta? Entrar'}
         </button>
@@ -123,7 +123,7 @@ export default function AuthPage() {
                 setError(err.message || 'Erro ao enviar email de recuperação.');
               } finally { setLoading(false); }
             }}
-            className="w-full text-white/30 text-[10px] font-bold py-1 hover:text-blue-400 transition-colors"
+            className="w-full text-white/30 text-[10px] font-bold py-1 hover:text-[#007AFF] transition-colors"
           >
             Esqueceu a senha?
           </button>

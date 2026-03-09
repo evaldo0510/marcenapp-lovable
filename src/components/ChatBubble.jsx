@@ -7,16 +7,15 @@ function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChange }) {
 
   return (
     <div className={`flex ${isUser ? 'justify-end' : 'justify-start'} mb-2.5 px-3`}>
-      {/* Avatar for IARA */}
       {!isUser && (
-        <div className="w-7 h-7 rounded-full bg-blue-600/20 border border-blue-500/30 flex items-center justify-center mr-2 mt-1 shrink-0">
-          <span className="text-[8px] font-black text-blue-400">M</span>
+        <div className="w-7 h-7 rounded-full bg-[#007AFF]/20 border border-[#007AFF]/30 flex items-center justify-center mr-2 mt-1 shrink-0">
+          <span className="text-[8px] font-black text-[#007AFF]">M</span>
         </div>
       )}
 
       <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 shadow-md ${
         isUser 
-          ? 'bg-blue-600 text-white rounded-br-sm' 
+          ? 'bg-[#DCF8C6] text-[#111B21] rounded-br-sm' 
           : 'bg-white/[0.06] text-white/90 rounded-bl-sm border border-white/[0.06]'
       }`}>
         {msg.type === 'image' && msg.src && (
@@ -38,7 +37,7 @@ function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChange }) {
           <div className="mt-2.5 flex gap-2 overflow-x-auto pb-1">
             <button 
               onClick={() => onMaskEdit?.(msg.src)} 
-              className="shrink-0 bg-blue-500/10 text-blue-400 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase flex items-center gap-1.5 border border-blue-500/20 active:scale-95 transition-all"
+              className="shrink-0 bg-[#007AFF]/10 text-[#007AFF] px-3 py-1.5 rounded-lg text-[9px] font-black uppercase flex items-center gap-1.5 border border-[#007AFF]/20 active:scale-95 transition-all"
             >
               <MapPin size={10} /> Ponto Exato
             </button>
@@ -58,8 +57,8 @@ function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChange }) {
         )}
 
         <div className={`flex items-center gap-1 mt-1 ${isUser ? 'justify-end' : 'justify-start'}`}>
-          <span className="text-[9px] opacity-40">{msg.time || 'Agora'}</span>
-          {isUser && <CheckCheck size={12} className="text-blue-200/50" />}
+          <span className={`text-[9px] ${isUser ? 'text-[#111B21]/40' : 'opacity-40'}`}>{msg.time || 'Agora'}</span>
+          {isUser && <CheckCheck size={12} className="text-[#007AFF]/60" />}
         </div>
       </div>
     </div>

@@ -30,7 +30,7 @@ export default function UploadPreview({ photo, onCancel, onConfirm, onDirectRend
         {onDirectRender && (
           <button
             onClick={() => onDirectRender(caption)}
-            className="w-full flex items-center justify-center gap-3 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-2xl font-black text-[11px] uppercase tracking-widest active:scale-95 transition-all shadow-xl border-b-4 border-blue-800"
+            className="w-full flex items-center justify-center gap-3 py-4 bg-gradient-to-r from-[#007AFF] to-[#0066DD] text-white rounded-2xl font-black text-[11px] uppercase tracking-widest active:scale-95 transition-all shadow-xl border-b-4 border-[#0055CC]"
           >
             <Wand2 size={18} /> GERAR PROJETO DIRETO
           </button>

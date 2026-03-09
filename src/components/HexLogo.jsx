@@ -10,8 +10,8 @@ function HexLogo({ size = 48, active = false, onClick, className = '' }) {
       <svg viewBox="0 0 100 100" className="w-full h-full drop-shadow-lg">
         <defs>
           <linearGradient id="hex-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#3b82f6" />
-            <stop offset="100%" stopColor="#1d4ed8" />
+            <stop offset="0%" stopColor="#007AFF" />
+            <stop offset="100%" stopColor="#0055CC" />
           </linearGradient>
           <filter id="hex-glow">
             <feGaussianBlur stdDeviation="3" result="blur" />
@@ -24,7 +24,7 @@ function HexLogo({ size = 48, active = false, onClick, className = '' }) {
         <polygon
           points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
           fill={active ? "url(#hex-grad)" : "rgba(255,255,255,0.05)"}
-          stroke={active ? "#60a5fa" : "rgba(255,255,255,0.15)"}
+          stroke={active ? "#007AFF" : "rgba(255,255,255,0.15)"}
           strokeWidth="2"
           filter={active ? "url(#hex-glow)" : undefined}
         />
@@ -40,7 +40,7 @@ function HexLogo({ size = 48, active = false, onClick, className = '' }) {
         </text>
       </svg>
       {active && (
-        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+        <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-[#007AFF] animate-pulse" />
       )}
     </div>
   );

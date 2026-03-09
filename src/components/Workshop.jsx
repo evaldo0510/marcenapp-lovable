@@ -25,7 +25,7 @@ import HexLogo from './HexLogo';
 
 const LazyFallback = () => (
   <div className="flex items-center justify-center h-40">
-    <div className="w-6 h-6 border-2 border-blue-500 border-t-transparent rounded-full animate-spin" />
+    <div className="w-6 h-6 border-2 border-[#007AFF] border-t-transparent rounded-full animate-spin" />
   </div>
 );
 
@@ -435,7 +435,7 @@ export default function Workshop() {
         <HexLogo size={72} active />
         <div className="mt-12 space-y-4 flex flex-col items-center">
           <div className="w-48 h-[2px] bg-white/5 rounded-full overflow-hidden">
-            <div className="h-full bg-blue-500 rounded-full" style={{ animation: 'loading 1.5s ease-in-out infinite' }} />
+            <div className="h-full bg-[#007AFF] rounded-full" style={{ animation: 'loading 1.5s ease-in-out infinite' }} />
           </div>
           <p className="text-white/30 text-[9px] font-black uppercase tracking-[0.5em]">{systemStatus}</p>
         </div>
@@ -455,10 +455,10 @@ export default function Workshop() {
               <div className="flex items-center justify-between py-4">
                 <div className="flex items-center gap-3">
                   <HexLogo size={32} active />
-                  <h1 className="text-sm font-black tracking-tight">IARA <span className="text-blue-500">STUDIO</span></h1>
+                  <h1 className="text-sm font-black tracking-tight">IARA <span className="text-[#007AFF]">STUDIO</span></h1>
                 </div>
                 <div className="flex items-center gap-2">
-                  <button onClick={() => setShowGallery(true)} className="p-2 text-white/40 hover:text-blue-400 transition-colors" title="Galeria">
+                  <button onClick={() => setShowGallery(true)} className="p-2 text-white/40 hover:text-[#007AFF] transition-colors" title="Galeria">
                     <GalleryHorizontalEnd size={16} />
                   </button>
                   <div className="flex items-center gap-2 bg-emerald-500/10 px-3 py-1.5 rounded-full border border-emerald-500/20">
@@ -535,7 +535,7 @@ export default function Workshop() {
         <div className="fixed inset-0 z-[500] bg-[#020617]/98 backdrop-blur-2xl flex flex-col items-center justify-center p-12 text-center">
           <HexLogo size={72} active />
           <div className="mt-12 space-y-6">
-            <Loader2 className="animate-spin text-blue-500 mx-auto" size={72} />
+            <Loader2 className="animate-spin text-[#007AFF] mx-auto" size={72} />
             <p className="text-white font-black text-[12px] uppercase tracking-[0.8em] animate-pulse italic leading-none">{loadingText}</p>
           </div>
         </div>
