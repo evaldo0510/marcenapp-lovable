@@ -461,7 +461,7 @@ export default function Workshop() {
             className="h-full flex flex-col"
           >
             {step !== 'result' && (
-              <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-[env(safe-area-inset-top)] bg-[#020617] border-b border-white/[0.04]">
+              <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-[env(safe-area-inset-top)] bg-white/95 backdrop-blur-xl border-b border-[#007AFF]/10">
                 <div className="flex items-center justify-between py-3">
                   <div className="flex items-center gap-3">
                     <HexLogo size={36} active />
