@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useCallback, lazy, Suspense } from 'react';
 import {
-  Loader2, RotateCcw, Settings, LogOut, GalleryHorizontalEnd, ShieldAlert, X
+  Loader2, RotateCcw, Settings, LogOut, GalleryHorizontalEnd, ShieldAlert, X, MoreVertical
 } from 'lucide-react';
 import useVoiceControl from '../hooks/useVoiceControl';
 import { supabase } from '../integrations/supabase/client';
