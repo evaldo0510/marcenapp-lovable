@@ -91,7 +91,7 @@ function UploadStep({
         )}
 
         <div className="flex items-center gap-2">
-          <button onClick={triggerUpload} className="p-2.5 text-white/30 hover:text-white/60 active:scale-90 transition-all">
+          <button onClick={triggerUpload} className="p-2.5 text-[#007AFF]/40 hover:text-[#007AFF] active:scale-90 transition-all">
             <Camera size={20} />
           </button>
 
