@@ -13,13 +13,11 @@ const sideTabs = [
 function BottomNav({ activeTab, onTabChange }) {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-[200] pb-[env(safe-area-inset-bottom)]">
-      {/* Frosted glass background */}
       <div className="absolute inset-0 bg-[#020617]/90 backdrop-blur-2xl border-t border-white/[0.06]" />
 
       <div className="relative flex items-end justify-around px-4 pt-1 pb-1">
         {sideTabs.map((tab, i) => {
           if (!tab) {
-            // Center hex button
             return (
               <button
                 key="iara-center"
@@ -28,7 +26,7 @@ function BottomNav({ activeTab, onTabChange }) {
               >
                 <HexLogo size={56} active={activeTab === 'iara'} />
                 <span className={`text-[8px] font-black uppercase tracking-[0.2em] transition-colors ${
-                  activeTab === 'iara' ? 'text-blue-400' : 'text-white/25'
+                  activeTab === 'iara' ? 'text-[#007AFF]' : 'text-white/25'
                 }`}>
                   Iara
                 </span>
@@ -50,12 +48,12 @@ function BottomNav({ activeTab, onTabChange }) {
               <Icon
                 size={20}
                 className={`transition-colors ${
-                  isActive ? 'text-blue-400' : 'text-white/25'
+                  isActive ? 'text-[#007AFF]' : 'text-white/25'
                 }`}
                 strokeWidth={isActive ? 2.5 : 1.5}
               />
               <span className={`text-[9px] font-bold tracking-wider transition-colors ${
-                isActive ? 'text-blue-400' : 'text-white/25'
+                isActive ? 'text-[#007AFF]' : 'text-white/25'
               }`}>
                 {tab.label}
               </span>
