@@ -438,7 +438,7 @@ export default function Workshop() {
           <div className="w-48 h-[2px] bg-white/5 rounded-full overflow-hidden">
             <div className="h-full bg-[#007AFF] rounded-full" style={{ animation: 'loading 1.5s ease-in-out infinite' }} />
           </div>
-          <p className="text-white/30 text-[9px] font-black uppercase tracking-[0.5em]">{systemStatus}</p>
+          <p className="text-[#007AFF]/50 text-[9px] font-black uppercase tracking-[0.5em]">{systemStatus}</p>
         </div>
         <style>{`@keyframes loading { 0% { width: 0%; left: 0%; } 50% { width: 100%; left: 0%; } 100% { width: 0%; left: 100%; } }`}</style>
       </div>
