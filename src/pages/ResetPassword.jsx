@@ -81,8 +81,8 @@ export default function ResetPassword() {
           <circle cx="50" cy="50" r="30" fill="none" stroke="#3b82f6" strokeWidth="1.5" opacity="0.5" />
           <circle cx="50" cy="50" r="8" fill="#3b82f6" />
         </svg>
-        <h1 className="text-xl font-black text-white tracking-tight">NOVA SENHA</h1>
-        <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.3em] mt-1">Defina sua nova senha</p>
+        <h1 className="text-xl font-black text-[#1a2a3a] tracking-tight">NOVA SENHA</h1>
+        <p className="text-[#1a2a3a]/30 text-[10px] font-bold uppercase tracking-[0.3em] mt-1">Defina sua nova senha</p>
       </div>
 
       <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
