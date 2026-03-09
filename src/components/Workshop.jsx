@@ -447,6 +447,7 @@ export default function Workshop() {
 
   return (
     <div className="fixed inset-0 bg-[#020617] text-white overflow-hidden font-['Inter',sans-serif]">
+      <style>{`.font-display { font-family: 'Orbitron', sans-serif; } .custom-scrollbar::-webkit-scrollbar { width: 0px; } * { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
       <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleUpload} />
 
       <AnimatePresence mode="wait">
