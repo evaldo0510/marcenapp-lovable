@@ -466,7 +466,7 @@ export default function Workshop() {
                   <div className="flex items-center gap-3">
                     <HexLogo size={36} active />
                     <div>
-                      <h1 className="text-sm font-black tracking-tight font-['Orbitron',sans-serif]">Iara <span className="text-[#007AFF]">Render</span></h1>
+                      <h1 className="text-sm font-black tracking-tight font-['Orbitron',sans-serif] text-[#1a2a3a]">Iara <span className="text-[#007AFF]">Render</span></h1>
                       <p className="text-[8px] text-emerald-400 font-bold uppercase tracking-widest">online</p>
                     </div>
                   </div>
