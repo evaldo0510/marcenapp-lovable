@@ -48,10 +48,10 @@ export default function AuthPage() {
           <circle cx="50" cy="50" r="30" fill="none" stroke="#007AFF" strokeWidth="1.5" opacity="0.5" />
           <circle cx="50" cy="50" r="8" fill="#007AFF" />
         </svg>
-        <h1 className="text-xl font-black text-white tracking-tight">
+        <h1 className="text-xl font-black text-[#1a2a3a] tracking-tight">
           IARA <span className="text-[#007AFF]">STUDIO</span>
         </h1>
-        <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.3em] mt-1">
+        <p className="text-[#1a2a3a]/30 text-[10px] font-bold uppercase tracking-[0.3em] mt-1">
           Sistema Industrial Inteligente
         </p>
       </div>
