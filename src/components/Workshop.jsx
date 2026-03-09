@@ -454,7 +454,7 @@ export default function Workshop() {
             <header className="fixed top-0 left-0 right-0 z-50 px-6 pt-[env(safe-area-inset-top)] bg-gradient-to-b from-[#020617] via-[#020617]/80 to-transparent">
               <div className="flex items-center justify-between py-4">
                 <div className="flex items-center gap-3">
-                  <Logo size="small" />
+                  <HexLogo size={32} active />
                   <h1 className="text-sm font-black tracking-tight">IARA <span className="text-blue-500">STUDIO</span></h1>
                 </div>
                 <div className="flex items-center gap-2">
