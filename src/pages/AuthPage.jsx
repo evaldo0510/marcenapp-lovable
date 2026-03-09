@@ -72,7 +72,7 @@ export default function AuthPage() {
           <input
             type={showPassword ? 'text' : 'password'} required value={password} onChange={e => setPassword(e.target.value)}
             placeholder="Senha" minLength={6}
-            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-11 py-4 text-sm text-white outline-none focus:border-blue-500 transition-colors"
+            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-11 py-4 text-sm text-white outline-none focus:border-[#007AFF] transition-colors"
           />
           <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30">
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
