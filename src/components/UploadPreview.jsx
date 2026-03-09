@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { X, Send, Crop, Type, Pencil, Sticker } from 'lucide-react';
+import { X, Send, Crop, Type, Pencil, Sticker, Wand2 } from 'lucide-react';
 
-export default function UploadPreview({ photo, onCancel, onConfirm }) {
+export default function UploadPreview({ photo, onCancel, onConfirm, onDirectRender }) {
   const [caption, setCaption] = useState('');
 
   return (
@@ -25,26 +25,36 @@ export default function UploadPreview({ photo, onCancel, onConfirm }) {
       </div>
 
       {/* Caption + Send */}
-      <div className="px-4 pb-6 pt-2">
+      <div className="px-4 pb-6 pt-2 space-y-3">
+        {/* Direct render button */}
+        {onDirectRender && (
+          <button
+            onClick={() => onDirectRender(caption)}
+            className="w-full flex items-center justify-center gap-3 py-4 bg-gradient-to-r from-blue-600 to-blue-500 text-white rounded-2xl font-black text-[11px] uppercase tracking-widest active:scale-95 transition-all shadow-xl border-b-4 border-blue-800"
+          >
+            <Wand2 size={18} /> GERAR PROJETO DIRETO
+          </button>
+        )}
         <div className="flex items-center gap-3">
           <div className="flex-1 bg-white/5 border border-white/10 rounded-full px-5 py-3 flex items-center">
             <input
               value={caption}
               onChange={e => setCaption(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && onConfirm(caption)}
-              placeholder="Descreva o que deseja alterar..."
+              placeholder="Ou descreva e desenhe no rascunho..."
               className="flex-1 bg-transparent text-white text-sm outline-none placeholder:text-white/30"
             />
           </div>
           <button
             onClick={() => onConfirm(caption)}
-            className="w-12 h-12 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-xl active:scale-90 transition-all"
+            className="w-12 h-12 rounded-full bg-white/10 text-white flex items-center justify-center shadow-xl active:scale-90 transition-all border border-white/10"
+            title="Ir para rascunho"
           >
-            <Send size={18} />
+            <Pencil size={16} />
           </button>
         </div>
-        <p className="text-center text-[9px] text-white/20 mt-3 font-bold uppercase tracking-widest">
-          Toque na seta para marcar o ponto de intervenção
+        <p className="text-center text-[9px] text-white/20 font-bold uppercase tracking-widest">
+          Gere direto da foto ou desenhe no rascunho
         </p>
       </div>
     </div>
