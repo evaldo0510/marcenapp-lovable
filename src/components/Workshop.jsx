@@ -21,18 +21,7 @@ const ClientesTab = lazy(() => import('./tabs/ClientesTab'));
 const OrcarTab = lazy(() => import('./tabs/OrcarTab'));
 const DiarioTab = lazy(() => import('./tabs/DiarioTab'));
 
-const Logo = ({ size = "normal" }) => {
-  const s = size === "small" ? "w-8 h-8" : "w-20 h-20";
-  return (
-    <div className={`${s} relative`}>
-      <svg viewBox="0 0 100 100" className="w-full h-full">
-        <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" strokeWidth="2" opacity="0.3" />
-        <circle cx="50" cy="50" r="30" fill="none" stroke="#3b82f6" strokeWidth="1.5" opacity="0.5" />
-        <circle cx="50" cy="50" r="8" fill="#3b82f6" />
-      </svg>
-    </div>
-  );
-};
+import HexLogo from './HexLogo';
 
 const LazyFallback = () => (
   <div className="flex items-center justify-center h-40">
