@@ -93,7 +93,7 @@ export default function AuthPage() {
 
         <button
           type="submit" disabled={loading}
-          className="w-full bg-[#007AFF] text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 active:scale-95 transition-all shadow-xl border-b-4 border-[#0055CC] disabled:opacity-50"
+          className="w-full bg-[#007AFF] text-white py-4 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-3 active:scale-95 transition-all shadow-xl shadow-[#007AFF]/20 border-b-4 border-[#0055CC] disabled:opacity-50"
         >
           {loading ? <Loader2 size={18} className="animate-spin" /> : (
             <>{isLogin ? 'Entrar' : 'Criar Conta'} <ArrowRight size={16} /></>
