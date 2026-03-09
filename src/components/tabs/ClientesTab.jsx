@@ -85,8 +85,8 @@ export default function ClientesTab() {
           <div key={c.id} className="bg-white/5 border border-white/5 rounded-2xl p-4">
             <div className="flex items-start justify-between mb-2">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-blue-500/10 border border-blue-500/20 flex items-center justify-center">
-                  <span className="text-blue-400 font-black text-sm">{c.name[0]?.toUpperCase()}</span>
+                <div className="w-10 h-10 rounded-full bg-[#007AFF]/10 border border-[#007AFF]/20 flex items-center justify-center">
+                  <span className="text-[#007AFF] font-black text-sm">{c.name[0]?.toUpperCase()}</span>
                 </div>
                 <div>
                   <h3 className="text-sm font-black text-white">{c.name}</h3>
