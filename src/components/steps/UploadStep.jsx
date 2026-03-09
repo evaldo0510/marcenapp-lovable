@@ -10,19 +10,21 @@ function UploadStep({
 }) {
   return (
     <div className="h-full flex flex-col pb-20">
-      <div ref={scrollRef} className="flex-1 overflow-y-auto pt-24 pb-4">
+      <div ref={scrollRef} className="flex-1 overflow-y-auto pt-24 pb-4 custom-scrollbar">
         {messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center px-8 text-center">
             <HexLogo size={80} active />
 
             <div className="mt-8 mb-10">
-              <h2 className="text-2xl font-black leading-tight tracking-tight">
-                ALVENARIA<br />
-                <span className="text-[#007AFF]">DIGITAL.</span>
+              <h2 className="text-2xl font-black leading-tight tracking-tight font-['Orbitron',sans-serif]">
+                Alvenaria<br />
+                <span className="text-[#007AFF]">Digital</span>
               </h2>
-              <p className="text-white/25 text-[11px] mt-4 max-w-[260px] leading-relaxed font-medium">
-                Suba seu rascunho ou foto do ambiente.<br />
-                A IARA irá materializar com fidelidade 1:1.
+              <p className="text-white/30 text-[10px] mt-3 font-black uppercase tracking-[0.3em]">
+                Fidelidade Geométrica 1:1
+              </p>
+              <p className="text-white/20 text-[11px] mt-4 max-w-[260px] leading-relaxed">
+                Mestre, suba o seu rascunho para materializar a visão.
               </p>
             </div>
 
@@ -42,6 +44,13 @@ function UploadStep({
           </div>
         ) : (
           <div className="space-y-1">
+            {messages.length > 0 && (
+              <div className="flex justify-center mb-4">
+                <span className="bg-[#007AFF]/10 text-[#007AFF] text-[8px] font-black uppercase tracking-[0.3em] px-4 py-1.5 rounded-full border border-[#007AFF]/20">
+                  Criptografia Industrial Activa
+                </span>
+              </div>
+            )}
             {messages.map((m) => (
               <ChatBubble
                 key={m.id}
@@ -54,11 +63,7 @@ function UploadStep({
             {chatLoading && (
               <div className="flex justify-start px-3 mb-2">
                 <div className="bg-white/[0.06] rounded-2xl rounded-bl-md px-4 py-3 border border-white/[0.04]">
-                  <div className="flex gap-1.5">
-                    <span className="w-2 h-2 bg-[#007AFF] rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-2 h-2 bg-[#007AFF] rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-2 h-2 bg-[#007AFF] rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                  </div>
+                  <p className="text-[10px] text-white/40 italic font-bold">Iara a transmutar...</p>
                 </div>
               </div>
             )}
@@ -113,14 +118,14 @@ function UploadStep({
           {chatInput.trim() ? (
             <button
               onClick={sendChat}
-              className="w-11 h-11 rounded-full bg-[#00A884] text-white flex items-center justify-center shadow-lg shadow-[#00A884]/20 active:scale-90 transition-all"
+              className="w-12 h-12 rounded-full bg-[#00A884] text-white flex items-center justify-center shadow-lg shadow-[#00A884]/20 active:scale-90 transition-all"
             >
               <Send size={16} />
             </button>
           ) : (
             <button
               onClick={voice.isListening ? () => { voice.stopListening(); if (voice.transcript) setTimeout(sendChat, 300); } : voice.startListening}
-              className={`w-11 h-11 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-all ${
+              className={`w-12 h-12 rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-all ${
                 voice.isListening ? 'bg-red-500 animate-pulse shadow-red-500/20' : 'bg-[#00A884] shadow-[#00A884]/20'
               } text-white`}
             >
