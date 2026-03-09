@@ -432,13 +432,13 @@ export default function Workshop() {
   // Boot screen
   if (isBooting) {
     return (
-      <div className="fixed inset-0 bg-[#020617] flex flex-col items-center justify-center z-[999]">
+      <div className="fixed inset-0 bg-white flex flex-col items-center justify-center z-[999]">
         <HexLogo size={72} active />
         <div className="mt-12 space-y-4 flex flex-col items-center">
-          <div className="w-48 h-[2px] bg-white/5 rounded-full overflow-hidden">
-            <div className="h-full bg-[#007AFF] rounded-full" style={{ animation: 'loading 1.5s ease-in-out infinite' }} />
+            <div className="w-48 h-[2px] bg-[#007AFF]/10 rounded-full overflow-hidden">
+              <div className="h-full bg-[#007AFF] rounded-full" style={{ animation: 'loading 1.5s ease-in-out infinite' }} />
           </div>
-          <p className="text-white/30 text-[9px] font-black uppercase tracking-[0.5em]">{systemStatus}</p>
+          <p className="text-[#007AFF]/50 text-[9px] font-black uppercase tracking-[0.5em]">{systemStatus}</p>
         </div>
         <style>{`@keyframes loading { 0% { width: 0%; left: 0%; } 50% { width: 100%; left: 0%; } 100% { width: 0%; left: 100%; } }`}</style>
       </div>
@@ -446,7 +446,7 @@ export default function Workshop() {
   }
 
   return (
-    <div className="fixed inset-0 bg-[#020617] text-white overflow-hidden font-['Inter',sans-serif]">
+    <div className="fixed inset-0 bg-white text-[#1a2a3a] overflow-hidden font-['Inter',sans-serif]">
       <style>{`.font-display { font-family: 'Orbitron', sans-serif; } .custom-scrollbar::-webkit-scrollbar { width: 0px; } * { -ms-overflow-style: none; scrollbar-width: none; }`}</style>
       <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleUpload} />
 
@@ -461,31 +461,31 @@ export default function Workshop() {
             className="h-full flex flex-col"
           >
             {step !== 'result' && (
-              <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-[env(safe-area-inset-top)] bg-[#020617] border-b border-white/[0.04]">
+              <header className="fixed top-0 left-0 right-0 z-50 px-4 pt-[env(safe-area-inset-top)] bg-white/95 backdrop-blur-xl border-b border-[#007AFF]/10">
                 <div className="flex items-center justify-between py-3">
                   <div className="flex items-center gap-3">
                     <HexLogo size={36} active />
                     <div>
-                      <h1 className="text-sm font-black tracking-tight font-['Orbitron',sans-serif]">Iara <span className="text-[#007AFF]">Render</span></h1>
+                      <h1 className="text-sm font-black tracking-tight font-['Orbitron',sans-serif] text-[#1a2a3a]">Iara <span className="text-[#007AFF]">Render</span></h1>
                       <p className="text-[8px] text-emerald-400 font-bold uppercase tracking-widest">online</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-1">
-                    <button onClick={() => setShowGallery(true)} className="p-2 text-white/40 hover:text-[#007AFF] transition-colors" title="Galeria">
+                    <button onClick={() => setShowGallery(true)} className="p-2 text-[#007AFF]/40 hover:text-[#007AFF] transition-colors" title="Galeria">
                       <GalleryHorizontalEnd size={16} />
                     </button>
                     {step === 'sketch' && (
-                      <button onClick={resetAll} className="p-2 text-white/30 active:text-white transition-colors">
+                      <button onClick={resetAll} className="p-2 text-[#1a2a3a]/30 active:text-[#007AFF] transition-colors">
                         <RotateCcw size={16} />
                       </button>
                     )}
-                    <button onClick={() => setShowSettings(true)} className="p-2 text-white/20 hover:text-white/60 transition-colors" title="Configurações">
+                    <button onClick={() => setShowSettings(true)} className="p-2 text-[#1a2a3a]/20 hover:text-[#007AFF] transition-colors" title="Configurações">
                       <Settings size={14} />
                     </button>
-                    <button onClick={() => supabase.auth.signOut()} className="p-2 text-white/20 hover:text-red-400 transition-colors" title="Sair">
+                    <button onClick={() => supabase.auth.signOut()} className="p-2 text-[#1a2a3a]/20 hover:text-red-400 transition-colors" title="Sair">
                       <LogOut size={14} />
                     </button>
-                    <button className="p-2 text-white/20">
+                    <button className="p-2 text-[#1a2a3a]/20">
                       <MoreVertical size={14} />
                     </button>
                   </div>
@@ -589,11 +589,11 @@ export default function Workshop() {
 
       {/* Loading overlay */}
       {loading && (
-        <div className="fixed inset-0 z-[500] bg-[#020617]/98 backdrop-blur-2xl flex flex-col items-center justify-center p-12 text-center">
+        <div className="fixed inset-0 z-[500] bg-white/98 backdrop-blur-2xl flex flex-col items-center justify-center p-12 text-center">
           <HexLogo size={72} active />
           <div className="mt-12 space-y-6">
             <Loader2 className="animate-spin text-[#007AFF] mx-auto" size={72} />
-            <p className="text-white font-black text-[12px] uppercase tracking-[0.8em] animate-pulse italic leading-none">{loadingText}</p>
+            <p className="text-[#007AFF] font-black text-[12px] uppercase tracking-[0.8em] animate-pulse italic leading-none">{loadingText}</p>
           </div>
         </div>
       )}

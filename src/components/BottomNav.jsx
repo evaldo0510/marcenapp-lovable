@@ -13,7 +13,7 @@ const sideTabs = [
 function BottomNav({ activeTab, onTabChange }) {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-[200] pb-[env(safe-area-inset-bottom)]">
-      <div className="absolute inset-0 bg-[#020617]/90 backdrop-blur-2xl border-t border-white/[0.06]" />
+      <div className="absolute inset-0 bg-white/95 backdrop-blur-2xl border-t border-[#007AFF]/10 shadow-[0_-4px_20px_rgba(0,122,255,0.06)]" />
 
       <div className="relative flex items-end justify-around px-4 pt-1 pb-1">
         {sideTabs.map((tab, i) => {
@@ -26,7 +26,7 @@ function BottomNav({ activeTab, onTabChange }) {
               >
                 <HexLogo size={56} active={activeTab === 'iara'} />
                 <span className={`block text-center text-[8px] font-black uppercase tracking-[0.2em] transition-colors mt-0.5 ${
-                  activeTab === 'iara' ? 'text-[#007AFF]' : 'text-white/25'
+                  activeTab === 'iara' ? 'text-[#007AFF]' : 'text-[#1a2a3a]/30'
                 }`}>
                   Iara
                 </span>
@@ -42,7 +42,7 @@ function BottomNav({ activeTab, onTabChange }) {
               key={tab.id}
               onClick={() => onTabChange(tab.id)}
               className={`flex flex-col items-center gap-1 w-12 py-2.5 transition-all active:scale-90 ${
-                isActive ? 'text-[#007AFF] scale-110' : 'text-[#54656F] opacity-40'
+                isActive ? 'text-[#007AFF] scale-110' : 'text-[#1a2a3a]/30'
               }`}
             >
               <Icon

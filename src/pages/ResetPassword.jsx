@@ -52,10 +52,10 @@ export default function ResetPassword() {
 
   if (success) {
     return (
-      <div className="fixed inset-0 bg-[#020617] flex flex-col items-center justify-center px-8">
+      <div className="fixed inset-0 bg-white flex flex-col items-center justify-center px-8">
         <CheckCircle size={48} className="text-emerald-500 mb-6" />
-        <h1 className="text-xl font-black text-white mb-2">Senha Redefinida!</h1>
-        <p className="text-white/40 text-xs mb-8">Sua senha foi atualizada com sucesso.</p>
+        <h1 className="text-xl font-black text-[#1a2a3a] mb-2">Senha Redefinida!</h1>
+        <p className="text-[#1a2a3a]/40 text-xs mb-8">Sua senha foi atualizada com sucesso.</p>
         <a href="/" className="bg-blue-600 text-white px-8 py-4 rounded-2xl font-black text-xs uppercase tracking-widest flex items-center gap-3">
           Entrar no Studio <ArrowRight size={16} />
         </a>
@@ -65,45 +65,45 @@ export default function ResetPassword() {
 
   if (!isRecovery) {
     return (
-      <div className="fixed inset-0 bg-[#020617] flex flex-col items-center justify-center px-8 text-center">
-        <h1 className="text-xl font-black text-white mb-2">Link Inválido</h1>
-        <p className="text-white/40 text-xs mb-8">Este link de recuperação expirou ou é inválido.</p>
+      <div className="fixed inset-0 bg-white flex flex-col items-center justify-center px-8 text-center">
+        <h1 className="text-xl font-black text-[#1a2a3a] mb-2">Link Inválido</h1>
+        <p className="text-[#1a2a3a]/40 text-xs mb-8">Este link de recuperação expirou ou é inválido.</p>
         <a href="/auth" className="text-blue-500 text-xs font-bold uppercase tracking-widest">Voltar ao Login</a>
       </div>
     );
   }
 
   return (
-    <div className="fixed inset-0 bg-[#020617] flex flex-col items-center justify-center px-8">
+    <div className="fixed inset-0 bg-white flex flex-col items-center justify-center px-8">
       <div className="mb-10 text-center">
         <svg viewBox="0 0 100 100" className="w-16 h-16 mx-auto mb-4">
           <circle cx="50" cy="50" r="45" fill="none" stroke="#3b82f6" strokeWidth="2" opacity="0.3" />
           <circle cx="50" cy="50" r="30" fill="none" stroke="#3b82f6" strokeWidth="1.5" opacity="0.5" />
           <circle cx="50" cy="50" r="8" fill="#3b82f6" />
         </svg>
-        <h1 className="text-xl font-black text-white tracking-tight">NOVA SENHA</h1>
-        <p className="text-white/30 text-[10px] font-bold uppercase tracking-[0.3em] mt-1">Defina sua nova senha</p>
+        <h1 className="text-xl font-black text-[#1a2a3a] tracking-tight">NOVA SENHA</h1>
+        <p className="text-[#1a2a3a]/30 text-[10px] font-bold uppercase tracking-[0.3em] mt-1">Defina sua nova senha</p>
       </div>
 
       <form onSubmit={handleSubmit} className="w-full max-w-sm space-y-4">
         <div className="relative">
-          <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+          <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#007AFF]/30" />
           <input
             type={showPassword ? 'text' : 'password'} required value={password}
             onChange={e => setPassword(e.target.value)} placeholder="Nova senha" minLength={6}
-            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-11 py-4 text-sm text-white outline-none focus:border-blue-500 transition-colors"
+            className="w-full bg-[#007AFF]/5 border border-[#007AFF]/15 rounded-2xl pl-11 pr-11 py-4 text-sm text-[#1a2a3a] outline-none focus:border-blue-500 transition-colors placeholder:text-[#1a2a3a]/30"
           />
-          <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-white/30">
+          <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-[#007AFF]/30">
             {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
           </button>
         </div>
 
         <div className="relative">
-          <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30" />
+          <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#007AFF]/30" />
           <input
             type={showPassword ? 'text' : 'password'} required value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)} placeholder="Confirmar nova senha" minLength={6}
-            className="w-full bg-white/5 border border-white/10 rounded-2xl pl-11 pr-4 py-4 text-sm text-white outline-none focus:border-blue-500 transition-colors"
+            className="w-full bg-[#007AFF]/5 border border-[#007AFF]/15 rounded-2xl pl-11 pr-4 py-4 text-sm text-[#1a2a3a] outline-none focus:border-blue-500 transition-colors placeholder:text-[#1a2a3a]/30"
           />
         </div>
 

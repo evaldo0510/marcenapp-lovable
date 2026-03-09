@@ -16,7 +16,7 @@ function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChange }) {
       <div className={`max-w-[80%] rounded-2xl px-4 py-2.5 shadow-md ${
         isUser 
           ? 'bg-[#DCF8C6] text-[#111B21] rounded-br-sm' 
-          : 'bg-white/[0.06] text-white/90 rounded-bl-sm border border-white/[0.06]'
+          : 'bg-[#007AFF]/5 text-[#1a2a3a] rounded-bl-sm border border-[#007AFF]/10'
       }`}>
         {msg.type === 'image' && msg.src && (
           <div 
@@ -46,13 +46,13 @@ function ChatBubble({ msg, onInspect, onMaskEdit, onMaterialChange }) {
             </button>
             <button 
               onClick={() => onMaterialChange?.(msg.src)} 
-              className="shrink-0 bg-white/[0.04] text-white/40 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase flex items-center gap-1.5 border border-white/[0.06] active:scale-95 transition-all"
+              className="shrink-0 bg-[#1a2a3a]/5 text-[#1a2a3a]/50 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase flex items-center gap-1.5 border border-[#1a2a3a]/10 active:scale-95 transition-all"
             >
               <Hammer size={10} /> Material
             </button>
             <button 
               onClick={() => onInspect?.(msg.src)} 
-              className="shrink-0 bg-white/[0.04] text-white/40 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase flex items-center gap-1.5 border border-white/[0.06] active:scale-95 transition-all"
+              className="shrink-0 bg-[#1a2a3a]/5 text-[#1a2a3a]/50 px-3 py-1.5 rounded-lg text-[9px] font-black uppercase flex items-center gap-1.5 border border-[#1a2a3a]/10 active:scale-95 transition-all"
             >
               <Maximize2 size={10} /> Ampliar
             </button>

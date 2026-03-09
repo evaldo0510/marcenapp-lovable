@@ -20,10 +20,10 @@ function UploadStep({
                 Alvenaria<br />
                 <span className="text-[#007AFF]">Digital</span>
               </h2>
-              <p className="text-white/30 text-[10px] mt-3 font-black uppercase tracking-[0.3em]">
+              <p className="text-[#1a2a3a]/30 text-[10px] mt-3 font-black uppercase tracking-[0.3em]">
                 Fidelidade Geométrica 1:1
               </p>
-              <p className="text-white/20 text-[11px] mt-4 max-w-[260px] leading-relaxed">
+              <p className="text-[#1a2a3a]/20 text-[11px] mt-4 max-w-[260px] leading-relaxed">
                 Mestre, suba o seu rascunho para materializar a visão.
               </p>
             </div>
@@ -36,10 +36,10 @@ function UploadStep({
               Abrir Ambiente
             </button>
 
-            <div className="mt-8 flex items-center gap-2 text-white/15">
-              <div className="w-8 h-px bg-white/10" />
+            <div className="mt-8 flex items-center gap-2 text-[#007AFF]/20">
+              <div className="w-8 h-px bg-[#007AFF]/10" />
               <span className="text-[8px] font-bold uppercase tracking-[0.3em]">Fidelidade Industrial</span>
-              <div className="w-8 h-px bg-white/10" />
+              <div className="w-8 h-px bg-[#007AFF]/10" />
             </div>
           </div>
         ) : (
@@ -62,8 +62,8 @@ function UploadStep({
             ))}
             {chatLoading && (
               <div className="flex justify-start px-3 mb-2">
-                <div className="bg-white/[0.06] rounded-2xl rounded-bl-md px-4 py-3 border border-white/[0.04]">
-                  <p className="text-[10px] text-white/40 italic font-bold">Iara a transmutar...</p>
+                <div className="bg-[#007AFF]/5 rounded-2xl rounded-bl-md px-4 py-3 border border-[#007AFF]/10">
+                  <p className="text-[10px] text-[#007AFF]/40 italic font-bold">Iara a transmutar...</p>
                 </div>
               </div>
             )}
@@ -72,7 +72,7 @@ function UploadStep({
       </div>
 
       {/* Input bar */}
-      <div className="px-4 pb-20 pt-3 border-t border-white/[0.04] bg-[#020617]">
+      <div className="px-4 pb-20 pt-3 border-t border-[#007AFF]/10 bg-white">
         {generatedImage && (
           <div className="flex gap-2 mb-3 overflow-x-auto pb-2">
             <button
@@ -83,7 +83,7 @@ function UploadStep({
             </button>
             <button
               onClick={() => generateRender('multi')}
-              className="shrink-0 px-4 py-2 bg-white/[0.06] text-white rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 active:scale-95 border border-white/[0.08]"
+              className="shrink-0 px-4 py-2 bg-[#1a2a3a]/5 text-[#1a2a3a]/60 rounded-full text-[10px] font-black uppercase tracking-widest flex items-center gap-2 active:scale-95 border border-[#1a2a3a]/10"
             >
               <Eye size={12} /> Multi-Vista
             </button>
@@ -91,7 +91,7 @@ function UploadStep({
         )}
 
         <div className="flex items-center gap-2">
-          <button onClick={triggerUpload} className="p-2.5 text-white/30 hover:text-white/60 active:scale-90 transition-all">
+          <button onClick={triggerUpload} className="p-2.5 text-[#007AFF]/40 hover:text-[#007AFF] active:scale-90 transition-all">
             <Camera size={20} />
           </button>
 
@@ -104,14 +104,14 @@ function UploadStep({
           <div className={`flex-1 rounded-full px-4 py-3 flex items-center transition-all border ${
             voice.isListening
               ? 'bg-red-500/10 border-red-500/30'
-              : 'bg-white/[0.04] border-white/[0.08] focus-within:border-[#007AFF]/40'
+              : 'bg-[#007AFF]/5 border-[#007AFF]/15 focus-within:border-[#007AFF]/40'
           }`}>
             <input
               value={chatInput}
               onChange={e => setChatInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && sendChat()}
               placeholder={voice.isListening ? "🎤 Ouvindo..." : "Pergunte à IARA..."}
-              className="flex-1 bg-transparent text-white text-sm outline-none placeholder:text-white/20"
+              className="flex-1 bg-transparent text-[#1a2a3a] text-sm outline-none placeholder:text-[#1a2a3a]/30"
             />
           </div>
 
