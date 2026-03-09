@@ -471,7 +471,7 @@ export default function Workshop() {
                     </div>
                   </div>
                   <div className="flex items-center gap-1">
-                    <button onClick={() => setShowGallery(true)} className="p-2 text-white/40 hover:text-[#007AFF] transition-colors" title="Galeria">
+                    <button onClick={() => setShowGallery(true)} className="p-2 text-[#007AFF]/40 hover:text-[#007AFF] transition-colors" title="Galeria">
                       <GalleryHorizontalEnd size={16} />
                     </button>
                     {step === 'sketch' && (
