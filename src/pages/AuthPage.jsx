@@ -102,7 +102,7 @@ export default function AuthPage() {
 
         <button
           type="button" onClick={() => { setIsLogin(!isLogin); setError(null); setSuccess(null); }}
-          className="w-full text-white/40 text-xs font-bold py-2 hover:text-[#007AFF] transition-colors"
+          className="w-full text-[#1a2a3a]/40 text-xs font-bold py-2 hover:text-[#007AFF] transition-colors"
         >
           {isLogin ? 'Não tem conta? Criar agora' : 'Já tem conta? Entrar'}
         </button>
