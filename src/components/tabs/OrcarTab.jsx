@@ -80,10 +80,14 @@ export default function OrcarTab() {
             <Plus size={20} />
           </button>
         </div>
-        <div className="bg-gradient-to-br from-[#007AFF]/10 to-[#007AFF]/5 border border-[#007AFF]/15 rounded-2xl p-5 mb-4">
-          <p className="text-[9px] text-[#007AFF] font-black uppercase tracking-widest mb-1">Faturamento Total</p>
-          <p className="text-3xl font-black text-[#1a2a3a]">R$ {totalGeral.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-          <p className="text-[10px] text-[#007AFF]/50 mt-1">{budgets.length} orçamentos</p>
+        <div className="relative overflow-hidden bg-gradient-to-br from-[#007AFF] via-[#0066DD] to-[#004BB5] rounded-3xl p-6 mb-4 shadow-xl shadow-[#007AFF]/15">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-xl" />
+          <div className="relative">
+            <p className="text-[9px] text-white/60 font-black uppercase tracking-[0.3em] mb-2">Faturamento Total</p>
+            <p className="text-3xl font-black text-white tracking-tight">R$ {totalGeral.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+            <p className="text-[10px] text-white/40 mt-1 font-bold">{budgets.length} orçamento{budgets.length !== 1 ? 's' : ''}</p>
+          </div>
         </div>
       </div>
 
