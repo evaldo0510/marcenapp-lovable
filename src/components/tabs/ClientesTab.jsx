@@ -58,7 +58,7 @@ export default function ClientesTab() {
       <div className="px-6 pt-14 pb-4">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-xl font-black text-[#1a2a3a] tracking-tight">Clientes</h1>
+            <h1 className="text-xl font-black text-[#1a2a3a] tracking-tight font-['Orbitron',sans-serif]">Clientes</h1>
             <p className="text-[10px] text-[#1a2a3a]/30 font-bold uppercase tracking-widest">{clients.length} cadastrados</p>
           </div>
           <button onClick={() => { resetForm(); setShowForm(true); }} className="w-11 h-11 bg-[#007AFF] rounded-2xl flex items-center justify-center text-white shadow-lg shadow-[#007AFF]/20 active:scale-90 transition-all">
