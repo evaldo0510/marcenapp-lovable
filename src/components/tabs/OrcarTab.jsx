@@ -80,10 +80,14 @@ export default function OrcarTab() {
             <Plus size={20} />
           </button>
         </div>
-        <div className="bg-gradient-to-br from-[#007AFF]/10 to-[#007AFF]/5 border border-[#007AFF]/15 rounded-2xl p-5 mb-4">
-          <p className="text-[9px] text-[#007AFF] font-black uppercase tracking-widest mb-1">Faturamento Total</p>
-          <p className="text-3xl font-black text-[#1a2a3a]">R$ {totalGeral.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
-          <p className="text-[10px] text-[#007AFF]/50 mt-1">{budgets.length} orçamentos</p>
+        <div className="relative overflow-hidden bg-gradient-to-br from-[#007AFF] via-[#0066DD] to-[#004BB5] rounded-3xl p-6 mb-4 shadow-xl shadow-[#007AFF]/15">
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2 blur-2xl" />
+          <div className="absolute bottom-0 left-0 w-24 h-24 bg-white/5 rounded-full translate-y-1/2 -translate-x-1/2 blur-xl" />
+          <div className="relative">
+            <p className="text-[9px] text-white/60 font-black uppercase tracking-[0.3em] mb-2">Faturamento Total</p>
+            <p className="text-3xl font-black text-white tracking-tight">R$ {totalGeral.toLocaleString('pt-BR', { minimumFractionDigits: 2 })}</p>
+            <p className="text-[10px] text-white/40 mt-1 font-bold">{budgets.length} orçamento{budgets.length !== 1 ? 's' : ''}</p>
+          </div>
         </div>
       </div>
 
@@ -98,43 +102,46 @@ export default function OrcarTab() {
             <p className="text-[#1a2a3a]/30 text-sm font-bold">Nenhum orçamento ainda</p>
           </div>
         ) : budgets.map(b => (
-          <div key={b.id} className="bg-[#007AFF]/[0.03] border border-[#007AFF]/10 rounded-2xl p-4">
-            <div className="flex items-start justify-between mb-2">
+          <div key={b.id} className="bg-white border border-[#007AFF]/8 rounded-3xl p-5 shadow-[0_2px_16px_-4px_rgba(0,122,255,0.08)] hover:shadow-[0_4px_24px_-4px_rgba(0,122,255,0.12)] transition-shadow">
+            <div className="flex items-start justify-between mb-3">
               <div className="flex-1">
-                <h3 className="text-sm font-black text-[#1a2a3a]">{b.description}</h3>
-                <div className="flex flex-wrap gap-2 mt-1">
+                <h3 className="text-[13px] font-black text-[#1a2a3a] leading-tight">{b.description}</h3>
+                <div className="flex flex-wrap gap-1.5 mt-2">
                   {b.clients?.name && (
-                    <span className="text-[9px] font-bold text-[#007AFF] bg-[#007AFF]/10 border border-[#007AFF]/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <span className="text-[8px] font-bold text-[#007AFF] bg-gradient-to-r from-[#007AFF]/10 to-[#007AFF]/5 border border-[#007AFF]/15 px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
                       <Users size={8} /> {b.clients.name}
                     </span>
                   )}
                   {b.projects?.project_name && (
-                    <span className="text-[9px] font-bold text-amber-600 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-full flex items-center gap-1">
+                    <span className="text-[8px] font-bold text-amber-600 bg-gradient-to-r from-amber-500/10 to-amber-500/5 border border-amber-500/15 px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm">
                       <Hammer size={8} /> {b.projects.project_name}
                     </span>
                   )}
                 </div>
               </div>
-              <div className="flex gap-1">
-                <button onClick={() => shareBudget(b)} className="p-2 text-[#1a2a3a]/20 hover:text-emerald-500 transition-colors"><Share2 size={14} /></button>
-                <button onClick={() => deleteBudget(b.id)} className="p-2 text-[#1a2a3a]/20 hover:text-red-400 transition-colors"><Trash2 size={14} /></button>
+              <div className="flex gap-0.5">
+                <button onClick={() => shareBudget(b)} className="p-2 text-[#1a2a3a]/15 hover:text-emerald-500 active:scale-90 transition-all rounded-xl"><Share2 size={14} /></button>
+                <button onClick={() => deleteBudget(b.id)} className="p-2 text-[#1a2a3a]/15 hover:text-red-400 active:scale-90 transition-all rounded-xl"><Trash2 size={14} /></button>
               </div>
             </div>
             <div className="grid grid-cols-3 gap-2 mb-3">
-              <div className="bg-[#1a2a3a]/[0.03] rounded-xl p-2 text-center">
-                <p className="text-[8px] text-[#1a2a3a]/30 font-bold uppercase">Material</p>
-                <p className="text-xs font-black text-[#1a2a3a]">R$ {Number(b.material_cost).toFixed(0)}</p>
+              <div className="bg-gradient-to-b from-[#f8fafc] to-[#f1f5f9] rounded-2xl p-2.5 text-center border border-[#e2e8f0]">
+                <p className="text-[7px] text-[#1a2a3a]/30 font-black uppercase tracking-widest">Material</p>
+                <p className="text-xs font-black text-[#1a2a3a] mt-0.5">R$ {Number(b.material_cost).toFixed(0)}</p>
               </div>
-              <div className="bg-[#1a2a3a]/[0.03] rounded-xl p-2 text-center">
-                <p className="text-[8px] text-[#1a2a3a]/30 font-bold uppercase">Mão Obra</p>
-                <p className="text-xs font-black text-[#1a2a3a]">R$ {Number(b.labor_cost).toFixed(0)}</p>
+              <div className="bg-gradient-to-b from-[#f8fafc] to-[#f1f5f9] rounded-2xl p-2.5 text-center border border-[#e2e8f0]">
+                <p className="text-[7px] text-[#1a2a3a]/30 font-black uppercase tracking-widest">Mão Obra</p>
+                <p className="text-xs font-black text-[#1a2a3a] mt-0.5">R$ {Number(b.labor_cost).toFixed(0)}</p>
               </div>
-              <div className="bg-[#007AFF]/10 border border-[#007AFF]/20 rounded-xl p-2 text-center">
-                <p className="text-[8px] text-[#007AFF] font-bold uppercase">Total</p>
-                <p className="text-xs font-black text-[#007AFF]">R$ {Number(b.total).toFixed(0)}</p>
+              <div className="bg-gradient-to-br from-[#007AFF]/15 to-[#007AFF]/5 rounded-2xl p-2.5 text-center border border-[#007AFF]/20 shadow-inner">
+                <p className="text-[7px] text-[#007AFF] font-black uppercase tracking-widest">Total</p>
+                <p className="text-xs font-black text-[#007AFF] mt-0.5">R$ {Number(b.total).toFixed(0)}</p>
               </div>
             </div>
-            <p className="text-[9px] text-[#1a2a3a]/20">{new Date(b.created_at).toLocaleDateString('pt-BR')}</p>
+            <div className="flex items-center justify-between">
+              <p className="text-[9px] text-[#1a2a3a]/20 font-medium">{new Date(b.created_at).toLocaleDateString('pt-BR')}</p>
+              <div className="w-8 h-[2px] rounded-full bg-gradient-to-r from-[#007AFF]/20 to-transparent" />
+            </div>
           </div>
         ))}
       </div>
