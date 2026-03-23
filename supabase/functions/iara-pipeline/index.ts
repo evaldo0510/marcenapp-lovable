@@ -98,7 +98,7 @@ async function googleAnalyze(imageBase64: string | undefined, prompt: string | u
 }
 
 async function googleRender(imageBase64: string, description: string, apiKey: string) {
-  const model = "gemini-2.5-flash-preview-image-generation";
+  const model = "gemini-2.0-flash-exp";
   const systemPrompt = `### TASK: PIXEL-PERFECT SHOWROOM PHOTOGRAPH.
 GEOMETRY SLAVERY: Sketch lines are absolute edges. Convert pencil to sharp luxury finishes.
 Materials: PBR Wood grain [CARVALHO MALVA] and [MATTE WHITE].
