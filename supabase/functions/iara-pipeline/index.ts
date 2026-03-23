@@ -139,7 +139,7 @@ CONTEXT: ${description}`;
 }
 
 async function googleChat(prompt: string, imageBase64: string | null, apiKey: string) {
-  const model = "gemini-2.5-flash-preview-05-20";
+  const model = "gemini-2.5-flash";
   const parts: any[] = [
     { text: `És a IARA, inteligência do MarcenApp. Analisa rascunhos técnicos com precisão industrial. Responde de forma curta em português brasileiro.\n\nUtilizador: ${prompt}` }
   ];
