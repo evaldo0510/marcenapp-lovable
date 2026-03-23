@@ -64,7 +64,7 @@ serve(async (req) => {
 // ==========================================
 
 async function googleAnalyze(imageBase64: string | undefined, prompt: string | undefined, apiKey: string) {
-  const model = "gemini-2.5-flash-preview-05-20";
+  const model = "gemini-2.5-flash";
   const parts: any[] = [
     { text: `LEITURA ABSOLUTA: Extraia 100% dos textos, materiais e cotas anotados. Transcreva fielmente. Retorne JSON: {"description":"...","project":{"tipo":"...","pecas":[{"nome":"...","w":0,"h":0,"qtd":0}],"materiais":{"estrutura":"...","cor":"..."},"valor_mercado":0,"lucro_marceneiro":0,"otimizacao":0}}. ${prompt || "Analise o rascunho."}` }
   ];
