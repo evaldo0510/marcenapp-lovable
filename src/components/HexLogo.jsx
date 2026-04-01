@@ -34,9 +34,9 @@ function HexLogo({ size = 48, active = false, onClick, className = '' }) {
           fill={active ? "white" : "rgba(0,122,255,0.3)"}
           fontSize="28"
           fontWeight="900"
-          fontFamily="'Inter', sans-serif"
+          fontFamily="'Orbitron', sans-serif"
         >
-          M
+          I
         </text>
       </svg>
       {active && (
