@@ -71,7 +71,7 @@ function UploadStep({
         )}
       </div>
 
-      <div className="px-4 pb-5 pt-3 border-t border-[#007AFF]/10 bg-white">
+      <div className="px-4 pb-1 pt-2 border-t border-[#007AFF]/10 bg-white">
         {generatedImage && (
           <div className="flex gap-2 mb-3 overflow-x-auto pb-2">
             <button
