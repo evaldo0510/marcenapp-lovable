@@ -33,7 +33,7 @@ serve(async (req) => {
         : await lovableAnalyze(imageBase64, prompt, LOVABLE_API_KEY!);
     } else if (action === "render") {
       return useGoogle
-        ? await googleRender(imageBase64, description, GOOGLE_AI_KEY!)
+        ? await googleRender(imageBase64, description, GOOGLE_AI_KEY!, LOVABLE_API_KEY)
         : await lovableRender(imageBase64, description, LOVABLE_API_KEY!);
     } else if (action === "chat") {
       return useGoogle
@@ -97,8 +97,8 @@ async function googleAnalyze(imageBase64: string | undefined, prompt: string | u
   });
 }
 
-async function googleRender(imageBase64: string, description: string, apiKey: string) {
-  const model = "gemini-2.0-flash-exp-image-generation";
+async function googleRender(imageBase64: string, description: string, apiKey: string, fallbackApiKey?: string | null) {
+  const model = "gemini-2.0-flash-preview-image-generation";
   const systemPrompt = `### TASK: PIXEL-PERFECT SHOWROOM PHOTOGRAPH.
 GEOMETRY SLAVERY: Sketch lines are absolute edges. Convert pencil to sharp luxury finishes.
 Materials: PBR Wood grain [CARVALHO MALVA] and [MATTE WHITE].
@@ -123,12 +123,23 @@ CONTEXT: ${description}`;
   if (!resp.ok) {
     const errText = await resp.text();
     console.error("Google render error:", resp.status, errText);
+
+    if (resp.status === 404 && fallbackApiKey) {
+      console.warn("Google image model unavailable, falling back to Lovable AI gateway render.");
+      return await lovableRender(imageBase64, description, fallbackApiKey);
+    }
+
     return handleGoogleError(resp.status, errText);
   }
 
   const result = await resp.json();
   const imagePart = result.candidates?.[0]?.content?.parts?.find((p: any) => p.inlineData);
   const imageData = imagePart?.inlineData?.data || null;
+
+  if (!imageData && fallbackApiKey) {
+    console.warn("Google render returned no image, falling back to Lovable AI gateway render.");
+    return await lovableRender(imageBase64, description, fallbackApiKey);
+  }
 
   return new Response(JSON.stringify({
     render: imageData ? `data:image/png;base64,${imageData}` : null,
