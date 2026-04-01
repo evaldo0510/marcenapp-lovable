@@ -14,33 +14,35 @@ function HexLogo({ size = 48, active = false, onClick, className = '' }) {
             <stop offset="100%" stopColor="#0055CC" />
           </linearGradient>
           <filter id="hex-glow">
-            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feGaussianBlur stdDeviation="2" result="blur" />
             <feMerge>
               <feMergeNode in="blur" />
               <feMergeNode in="SourceGraphic" />
             </feMerge>
           </filter>
         </defs>
-        <polygon
-          points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
+        <circle
+          cx="50" cy="50" r="45"
           fill={active ? "url(#hex-grad)" : "rgba(0,122,255,0.02)"}
           stroke={active ? "#007AFF" : "rgba(0,122,255,0.1)"}
           strokeWidth="1.5"
           filter={active ? "url(#hex-glow)" : undefined}
         />
-        <polygon
-          points="50,15 84,33 84,67 50,85 16,67 16,33"
+        <circle
+          cx="50" cy="50" r="38"
           fill="none"
           stroke={active ? "rgba(255,255,255,0.2)" : "rgba(0,122,255,0.05)"}
           strokeWidth="1"
+          strokeDasharray="4 2"
         />
         <text
           x="50" y="58"
           textAnchor="middle"
           fill={active ? "white" : "rgba(0,122,255,0.3)"}
-          fontSize="28"
+          fontSize="32"
           fontWeight="900"
           fontFamily="'Orbitron', sans-serif"
+          className="tracking-tighter"
         >
           I
         </text>
