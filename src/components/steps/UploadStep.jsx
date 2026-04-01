@@ -9,7 +9,7 @@ function UploadStep({
   generateRender, setMaskEditorData
 }) {
   return (
-    <div className="h-full flex flex-col pb-10">
+    <div className="h-full flex flex-col pb-[52px]">
       <div ref={scrollRef} className="flex-1 overflow-y-auto pt-24 pb-4 custom-scrollbar">
         {messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center px-8 text-center">
