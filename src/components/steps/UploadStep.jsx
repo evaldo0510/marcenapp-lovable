@@ -9,7 +9,7 @@ function UploadStep({
   generateRender, setMaskEditorData
 }) {
   return (
-    <div className="h-full flex flex-col pb-20">
+    <div className="h-full flex flex-col pb-10">
       <div ref={scrollRef} className="flex-1 overflow-y-auto pt-24 pb-4 custom-scrollbar">
         {messages.length === 0 ? (
           <div className="h-full flex flex-col items-center justify-center px-8 text-center">
@@ -71,8 +71,7 @@ function UploadStep({
         )}
       </div>
 
-      {/* Input bar */}
-      <div className="px-4 pb-14 pt-3 border-t border-[#007AFF]/10 bg-white">
+      <div className="px-4 pb-5 pt-3 border-t border-[#007AFF]/10 bg-white">
         {generatedImage && (
           <div className="flex gap-2 mb-3 overflow-x-auto pb-2">
             <button
@@ -110,7 +109,7 @@ function UploadStep({
               value={chatInput}
               onChange={e => setChatInput(e.target.value)}
               onKeyDown={e => e.key === 'Enter' && sendChat()}
-              placeholder={voice.isListening ? "🎤 Ouvindo..." : "Pergunte à IARA..."}
+              placeholder={voice.isListening ? '🎤 Ouvindo...' : 'Pergunte à IARA...'}
               className="flex-1 bg-transparent text-[#1a2a3a] text-sm outline-none placeholder:text-[#1a2a3a]/30"
             />
           </div>
