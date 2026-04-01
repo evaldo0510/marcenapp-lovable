@@ -72,7 +72,7 @@ function UploadStep({
       </div>
 
       {/* Input bar */}
-      <div className="px-4 pb-20 pt-3 border-t border-[#007AFF]/10 bg-white">
+      <div className="px-4 pb-14 pt-3 border-t border-[#007AFF]/10 bg-white">
         {generatedImage && (
           <div className="flex gap-2 mb-3 overflow-x-auto pb-2">
             <button
