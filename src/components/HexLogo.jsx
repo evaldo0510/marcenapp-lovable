@@ -23,10 +23,16 @@ function HexLogo({ size = 48, active = false, onClick, className = '' }) {
         </defs>
         <polygon
           points="50,5 93,27.5 93,72.5 50,95 7,72.5 7,27.5"
-          fill={active ? "url(#hex-grad)" : "rgba(0,122,255,0.05)"}
-          stroke={active ? "#007AFF" : "rgba(0,122,255,0.15)"}
-          strokeWidth="2"
+          fill={active ? "url(#hex-grad)" : "rgba(0,122,255,0.02)"}
+          stroke={active ? "#007AFF" : "rgba(0,122,255,0.1)"}
+          strokeWidth="1.5"
           filter={active ? "url(#hex-glow)" : undefined}
+        />
+        <polygon
+          points="50,15 84,33 84,67 50,85 16,67 16,33"
+          fill="none"
+          stroke={active ? "rgba(255,255,255,0.2)" : "rgba(0,122,255,0.05)"}
+          strokeWidth="1"
         />
         <text
           x="50" y="58"
